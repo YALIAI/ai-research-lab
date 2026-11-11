@@ -6,6 +6,10 @@ Personal project · 2026–present · Python · LangGraph · LangChain · FastAP
 
 The first research question: **Will end-to-end AI replace traditional modular ADAS architectures by 2030?** The question is configurable; this is a research workflow, not an autonomous-driving system. Any conclusions are exploratory and require human review.
 
+![Five AI research roles debating end-to-end versus modular ADAS architectures](docs/ai-debate-autonomous-driving.webp)
+
+*Concept illustration of the multi-agent debate and an exploratory conclusion. The implemented workflow is shown below.*
+
 ## Architecture
 
 ```mermaid
