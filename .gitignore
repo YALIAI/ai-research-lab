@@ -1,0 +1,29 @@
+# Local secrets and runtime state
+.env
+.env.*
+!.env.example
+*.sqlite3
+*.sqlite3-*
+*.db
+*.db-*
+
+# Python
+.venv/
+.venv-*/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+
+# Frontend
+node_modules/
+dist/
+*.log
+
+# Local tools and migration snapshots
+.agents/
+.codex/
+.aws/
+backend/main_v1_backup.py
+backend/main_v2_stable.py
+backend/upgrade_v2.py
+.DS_Store
