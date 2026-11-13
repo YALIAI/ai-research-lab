@@ -1,0 +1,42 @@
+import React, {useEffect,useRef,useState} from 'react';
+import {createRoot} from 'react-dom/client';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import {Activity,ArrowRight,BookOpen,CheckCircle2,Download,FileText,FlaskConical,LoaderCircle,Play,RotateCcw,Search,ShieldCheck,Target,TriangleAlert,PenLine} from 'lucide-react';
+import './style.css';
+
+const DEMO_TOPIC='Will End-to-End AI Replace Traditional Modular ADAS Architectures by 2030?';
+type EventItem={id?:number;run_id?:string;ts?:string;agent?:string;message?:string};
+type Run={id?:string;status?:string;error?:string|null;report?:string|null;topic?:string};
+const AGENTS=[{name:'PI',title:'Principal Investigator',icon:Target},{name:'Researcher',title:'Evidence retrieval',icon:Search},{name:'Analyst',title:'Evidence analysis',icon:BookOpen},{name:'Critic',title:'Critical review',icon:ShieldCheck},{name:'Writer',title:'Report synthesis',icon:PenLine}];
+function readableError(e:unknown){return e instanceof Error?e.message:String(e)}
+function App(){
+ const [topic,setTopic]=useState(DEMO_TOPIC),[runId,setRunId]=useState(''),[run,setRun]=useState<Run|null>(null),[events,setEvents]=useState<EventItem[]>([]),[error,setError]=useState(''),[starting,setStarting]=useState(false),[tab,setTab]=useState<'activity'|'report'>('activity');
+ const stream=useRef<EventSource|null>(null),timer=useRef<number|null>(null),seen=useRef(new Set<string>()),current=useRef('');
+ const stop=()=>{stream.current?.close();stream.current=null;if(timer.current!==null){window.clearInterval(timer.current);timer.current=null}};
+ const refresh=async(id:string)=>{try{const r=await fetch(`/api/runs/${encodeURIComponent(id)}`,{cache:'no-store'});if(!r.ok)throw new Error(`GET run failed: HTTP ${r.status}`);const data:Run=await r.json();if(current.current!==id)return;setRun(data);if(data.status==='completed'||data.status==='failed'||data.status==='error'){stop();if(data.status==='completed')setTab('report');}}catch(e){if(current.current===id)setError(readableError(e))}};
+ const watch=(id:string)=>{stop();current.current=id;seen.current=new Set();setEvents([]);setRunId(id);setRun({id,status:'running',report:''});setError('');setTab('activity');
+  const es=new EventSource(`/api/runs/${encodeURIComponent(id)}/events`);stream.current=es;
+  const onData=(payload:string)=>{try{const e:EventItem=JSON.parse(payload);if(!e.agent||typeof e.message!=='string')return;const key=e.id!==undefined?String(e.id):`${e.ts}|${e.agent}|${e.message}`;if(seen.current.has(key))return;seen.current.add(key);setEvents(prev=>[...prev,e]);}catch{/* ignore malformed SSE */}};
+  es.onmessage=(e)=>onData(e.data);
+  // Support both standard SSE messages and explicitly named event frames.
+  es.addEventListener('event',(e)=>onData((e as MessageEvent).data));
+  es.onerror=()=>{if(current.current===id)setError('Event stream disconnected. Status polling continues; you can reconnect with the run ID.');es.close()};
+  void refresh(id);timer.current=window.setInterval(()=>void refresh(id),3000);
+ };
+ useEffect(()=>()=>{stop()},[]);
+ const start=async()=>{if(!topic.trim()||starting)return;setStarting(true);setError('');try{const r=await fetch('/api/runs',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({topic:topic.trim()})});if(!r.ok)throw new Error(`POST /api/runs failed: HTTP ${r.status} ${await r.text()}`);const data:{id?:string}=await r.json();if(!data.id)throw new Error('API did not return a run ID');watch(data.id)}catch(e){setError(readableError(e))}finally{setStarting(false)}};
+ const download=()=>{if(!run?.report)return;const blob=new Blob([run.report],{type:'text/markdown;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download=`research-${runId.slice(0,8)}.md`;a.click();URL.revokeObjectURL(url)};
+ const completed=run?.status==='completed',busy=starting||(!!runId&&!completed&&run?.status!=='failed'&&run?.status!=='error');
+ const active=events.at(-1)?.agent;const sourceMatches=events.flatMap(e=>[...((e.message||'').matchAll(/Total sources:\s*(\d+)/gi))].map(m=>Number(m[1])));const sourceCount=sourceMatches.at(-1);
+ return <div className="app"><aside className="sidebar"><div className="brand"><div className="logo"><FlaskConical size={22}/></div><div><b>AI Research Lab</b><small>MULTI-AGENT WORKSPACE</small></div></div><div className="side-label">WORKSPACE</div><div className="side-link selected"><Activity size={17}/> Research Dashboard</div><div className="side-link muted"><BookOpen size={17}/> Evidence & Reports</div><div className="side-foot"><span className="dot"/> V3 frontend · V2 API</div></aside>
+ <main><header><div><span className="eyebrow">RESEARCH WORKSPACE / V3.0</span><h1>Research Dashboard</h1><p>Explore complex questions with an evidence-driven, five-agent workflow.</p></div><div className="api-note"><span className="dot"/> API proxy → localhost:8091</div></header>
+ <section className="panel topic"><div className="section-head"><h2><Target size={18}/> Research question</h2><span className="hint">OpenAlex · LangGraph · Local LLM</span></div><textarea aria-label="Research topic" value={topic} onChange={e=>setTopic(e.target.value)} rows={2}/><div className="topic-footer"><span>Start a new research run or reconnect to an existing one.</span><button className="primary" onClick={start} disabled={busy||!topic.trim()}>{starting?<LoaderCircle className="spin" size={17}/>:<Play size={16}/>} {starting?'Starting…':'Start Research'} <ArrowRight size={16}/></button></div><div className="reconnect"><input aria-label="Existing run ID" placeholder="Existing run ID (UUID)" value={runId} onChange={e=>setRunId(e.target.value)}/><button className="secondary" disabled={!runId.trim()} onClick={()=>watch(runId.trim())}><RotateCcw size={15}/> Reconnect</button></div></section>
+ {error&&<div className="error"><TriangleAlert size={17}/>{error}</div>}
+ <div className="stats"><div className="stat"><span>RUN STATUS</span><strong className={completed?'ok':''}>{run?.status||'Not started'}</strong></div><div className="stat"><span>AGENT EVENTS</span><strong>{events.length}</strong></div><div className="stat"><span>RETRIEVED SOURCES</span><strong>{sourceCount??'—'}</strong></div><div className="stat"><span>REPORT</span><strong>{run?.report?`${run.report.length.toLocaleString()} chars`:'Pending'}</strong></div></div>
+ <section className="panel workflow"><div className="section-head"><h2><Activity size={18}/> Agent workflow</h2><span className="hint">Live activity from SSE</span></div><div className="agents">{AGENTS.map((a,i)=>{const Icon=a.icon;const touched=events.some(e=>e.agent===a.name);return <React.Fragment key={a.name}><div className={`agent ${active===a.name&&busy?'active':''} ${touched?'touched':''}`}><div className="agent-icon"><Icon size={21}/></div><strong>{a.name}</strong><small>{a.title}</small>{touched&&<CheckCircle2 className="agent-check" size={14}/>}</div>{i<AGENTS.length-1&&<ArrowRight className="agent-arrow" size={17}/>}</React.Fragment>})}</div></section>
+ <section className="panel results"><div className="tabs"><button className={tab==='activity'?'chosen':''} onClick={()=>setTab('activity')}><Activity size={16}/> Agent activity</button><button className={tab==='report'?'chosen':''} onClick={()=>setTab('report')}><FileText size={16}/> Final report</button><div className="tab-spacer"/>{run?.report&&<button className="download" onClick={download}><Download size={16}/> Download .md</button>}</div>{tab==='activity'?<div className="event-list">{events.length===0?<div className="empty">Start a research run to see real-time agent activity.</div>:events.map((e,i)=><div className="event" key={e.id??i}><div className="event-line"><span className="agent-pill">{e.agent}</span><time>{e.ts?new Date(e.ts).toLocaleTimeString():''}</time></div><div className="event-message">{e.message}</div></div>)}</div>:<div className="report">{run?.report?<ReactMarkdown remarkPlugins={[remarkGfm]}>{run.report}</ReactMarkdown>:<div className="empty">The report will appear when Writer finishes. The API returns the completed report through GET /api/runs/:id.</div>}</div>}</section>
+ <footer><span>{runId?`Run ID: ${runId}`:'No active run'}</span><span>Runs execute on your existing V2 backend.</span></footer>
+ </main></div>
+}
+createRoot(document.getElementById('root')!).render(<React.StrictMode><App/></React.StrictMode>);

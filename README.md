@@ -14,7 +14,7 @@ The first research question: **Will end-to-end AI replace traditional modular AD
 
 ```mermaid
 flowchart TD
-    UI[React UI · research question and live logs] -->|POST /api/runs| API[FastAPI · background task]
+    UI[V4.1 Executive UI · interactive debate and live logs] -->|POST /api/runs| API[FastAPI · background task]
     API --> PI[PI · plan and generate search queries]
     PI --> R[Researcher · retrieve and deduplicate literature]
     R <-->|titles, abstracts, DOI links| OA[OpenAlex API]
@@ -43,6 +43,7 @@ All roles share the configured model with distinct prompts. SQLite records execu
 - Asynchronous FastAPI runs, live server-sent events (SSE), and persistent execution logs.
 - Source-ID validation, unresolved-review notices, and downloadable Markdown reports.
 - Local model inference through a configurable OpenAI-compatible endpoint; no OpenAI-hosted model is required.
+- V4.1 Executive homepage with four sections, an animated five-agent Debate Arena, offline Demo Mode, Live Research, and run reconnection.
 
 ## Run locally
 
@@ -56,7 +57,7 @@ pip install -r requirements.txt
 cp .env.example .env
 # Set LLM_BASE_URL and LLM_MODEL for your local inference server.
 # Set OPENALEX_API_KEY if needed for your OpenAlex access.
-uvicorn main:app --host 127.0.0.1 --port 8001 --reload
+uvicorn main:app --host 127.0.0.1 --port 8091 --reload
 ```
 
 In another terminal:
@@ -67,7 +68,9 @@ npm install
 npm run dev
 ```
 
-Open <http://127.0.0.1:5173>. The UI expects the backend at `http://127.0.0.1:8001`. API documentation: <http://127.0.0.1:8001/docs>.
+Open <http://localhost:5174>. The UI expects the backend at `http://127.0.0.1:8091`. API documentation: <http://127.0.0.1:8091/docs>.
+
+The V4.1 homepage opens the five-agent Debate Room. See [frontend instructions](frontend/README.md) for production serving and browser checks. Reuse existing backend and model services when already running.
 
 ## Project layout
 
@@ -75,8 +78,8 @@ Open <http://127.0.0.1:5173>. The UI expects the backend at `http://127.0.0.1:80
 backend/main.py          Agent graph, retrieval, API, SQLite and SSE
 backend/requirements.txt Backend dependencies
 backend/.env.example     Configuration template without secrets
-frontend/src/main.jsx    Research input, live workflow and report download
-frontend/src/style.css   UI styles
+frontend/index.html      V4.1 Executive Interface, demo, live events and reports
+frontend/vite.config.ts  Homepage build and same-origin API proxy
 docs/architecture.md     Execution flow, API and design limits
 ```
 
@@ -84,4 +87,4 @@ docs/architecture.md     Execution flow, API and design limits
 
 This is an early prototype. Run one backend worker: tasks execute in-process and do not survive a restart. Retrieval uses paper metadata and available abstracts, not full texts. Citation checks validate identifiers, not whether a paper supports a claim. Reaching the review limit can produce a report with unresolved concerns explicitly flagged.
 
-Next: reliable task recovery, retrieval and citation evaluation, automated workflow tests, and a history/reconnect UI. Local secrets, execution databases, virtual environments, and migration snapshots are excluded from version control.
+Next: reliable task recovery, retrieval and citation evaluation, automated workflow tests, and a searchable run-history UI. Local secrets, execution databases, virtual environments, and migration snapshots are excluded from version control.

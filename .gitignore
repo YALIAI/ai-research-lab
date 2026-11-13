@@ -27,3 +27,11 @@ backend/main_v1_backup.py
 backend/main_v2_stable.py
 backend/upgrade_v2.py
 .DS_Store
+
+# Local backups, archives, and compiler state
+*.bak
+*.bak-*
+*.bak.*
+*_backup_*/
+*.zip
+*.tsbuildinfo
