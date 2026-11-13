@@ -160,8 +160,7 @@ function updateResearchBeam(agentElement) {
     content: none;
     display: none;
 }
-.agent.researcher .talk,
-.public-showcase .agent:is(.analyst,.critic,.writer) .talk {
+.agent:is(.researcher,.analyst,.critic,.writer) .talk {
     margin-left: var(--bubble-shift-x, 0px);
     margin-bottom: var(--bubble-shift-up, 0px);
     max-height: min(125px, var(--bubble-available-height, 125px));
@@ -169,6 +168,16 @@ function updateResearchBeam(agentElement) {
 @keyframes bubble-appear{from{opacity:0}to{opacity:1}}
 </style>
 
+<style id="session-state-styles">
+.demo-topic-example[hidden],.draft-note[hidden]{display:none}
+.live:is([data-status="failed"],[data-status="unavailable"]),.status:is([data-status="failed"],[data-status="unavailable"]){color:var(--pink)}
+.live:is([data-status="completed"],[data-status="failed"],[data-status="unavailable"],[data-status="ready"])::before{animation:none}
+.live:is([data-status="failed"],[data-status="unavailable"])::before{background:var(--pink);box-shadow:0 0 12px var(--pink)}
+#report-state,#live-error{overflow-wrap:anywhere;min-width:0;max-width:100%}
+.controls button:disabled{opacity:.45;cursor:not-allowed}
+.draft-note{color:var(--muted);font-size:11px;line-height:1.5}
+.conclusion p{max-height:160px;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere}
+</style>
 <style id="public-showcase-layout">
 /* Prioritize the existing Arena on the public landing view. */
 .public-showcase .top,
@@ -181,12 +190,12 @@ function updateResearchBeam(agentElement) {
 .public-showcase .showcase-notice p {margin:8px 0 0;color:var(--muted);font-size:12px;line-height:1.5}
 .public-showcase #mode-live {opacity:.55;cursor:not-allowed}
 </style>
-</head><body><header><div class="brand"><div class="brand-mark">✦</div><div>AI RESEARCH LAB<div class="tiny">MULTI-AGENT RESEARCH · EXECUTIVE V4.1</div></div></div><div class="live" id="live">EXECUTIVE V4.1 · DEMO READY</div></header><main><section class="top"><div class="eyebrow">AI RESEARCH LAB  /  PROOF OF CONCEPT</div><h1>From a research question to a challenged, evidence-informed report.</h1><p>A local-first multi-agent workflow that retrieves literature, analyzes claims, challenges weak evidence, and drafts a synthesis. <strong>The debate room supports both a scripted presentation and live research from the backend.</strong></p></section><nav class="demo-nav" aria-label="Presentation sections"><button data-tab="overview">01 · Overview</button><button data-tab="debate" class="selected">02 · Debate Room</button><button data-tab="architecture">03 · Architecture</button><button data-tab="results">04 · Results & Roadmap</button></nav><section class="demo-panel" id="panel-overview"><div class="eyebrow">THE IDEA</div><h2 class="section-heading">Research with built-in critical review</h2><p class="section-lead">Instead of asking a single model for an answer, AI Research Lab coordinates specialized agents across an evidence-gathering and review workflow. The aim is to make reasoning more traceable, expose uncertainty, and produce a structured research report.</p><div class="presentation-grid"><div class="presentation-card"><div class="number">05</div><h3>Specialized AI roles</h3><p>PI, Researcher, Analyst, Critic, and Writer collaborate through an orchestrated workflow.</p></div><div class="presentation-card"><div class="number">12</div><h3>Unique papers in one V2 test</h3><p>A completed MRI research test retrieved five papers initially and seven additional papers after a critique-driven search.</p></div><div class="presentation-card"><div class="number">03</div><h3>Bounded review cycles</h3><p>The pipeline supports iterative critique, with a configured maximum of three rounds to control runtime.</p></div></div><div class="result-box"><h3>Today's showcase: ADAS research</h3><p><strong>Will End-to-End AI Replace Traditional Modular ADAS Architectures by 2030?</strong><br>Watch the agents frame the question, surface arguments, challenge safety assumptions, and synthesize a cautious hypothesis.</p></div><button class="demo-cta" data-go="debate">▶ Open the debate room</button><p class="fineprint">Choose Demo Mode for a scripted presentation or Live Research to connect to your research backend.</p></section><section class="demo-panel visible" id="panel-debate"><div class="eyebrow">INTERACTIVE VISUALIZATION</div><h2 class="section-heading">Five agents. One evolving argument.</h2><p class="section-lead">Use Demo Mode for the original animated presentation, or Live Research to display actual LangGraph agent events.</p><!-- local-live-console:start --><div class="live-console" id="live-console">
+</head><body><header><div class="brand"><div class="brand-mark">✦</div><div>AI RESEARCH LAB<div class="tiny">MULTI-AGENT RESEARCH · EXECUTIVE V4.1</div></div></div><div class="live" id="live">EXECUTIVE V4.1 · DEMO READY</div></header><main><section class="top"><div class="eyebrow">AI RESEARCH LAB  /  PROOF OF CONCEPT</div><h1>From a research question to a challenged, evidence-informed report.</h1><p>A local-first multi-agent workflow that retrieves literature, analyzes claims, challenges weak evidence, and drafts a synthesis. <strong>The debate room supports both a scripted presentation and live research from the backend.</strong></p></section><nav class="demo-nav" aria-label="Presentation sections"><button data-tab="overview">01 · Overview</button><button data-tab="debate" class="selected">02 · Debate Room</button><button data-tab="architecture">03 · Architecture</button><button data-tab="results">04 · Results & Roadmap</button></nav><section class="demo-panel" id="panel-overview"><div class="eyebrow">THE IDEA</div><h2 class="section-heading">Research with built-in critical review</h2><p class="section-lead">Instead of asking a single model for an answer, AI Research Lab coordinates specialized agents across an evidence-gathering and review workflow. The aim is to make reasoning more traceable, expose uncertainty, and produce a structured research report.</p><div class="presentation-grid"><div class="presentation-card"><div class="number">05</div><h3>Specialized AI roles</h3><p>PI, Researcher, Analyst, Critic, and Writer collaborate through an orchestrated workflow.</p></div><div class="presentation-card"><div class="number">12</div><h3>Unique papers in one V2 test</h3><p>A completed MRI research test retrieved five papers initially and seven additional papers after a critique-driven search.</p></div><div class="presentation-card"><div class="number">03</div><h3>Bounded review cycles</h3><p>The pipeline supports iterative critique, with a configured maximum of three rounds to control runtime.</p></div></div><div class="result-box demo-topic-example"><h3>Today's showcase: ADAS research</h3><p><strong>Will End-to-End AI Replace Traditional Modular ADAS Architectures by 2030?</strong><br>Watch the agents frame the question, surface arguments, challenge safety assumptions, and synthesize a cautious hypothesis.</p></div><button class="demo-cta" data-go="debate">▶ Open the debate room</button><p class="fineprint">Choose Demo Mode for a scripted presentation or Live Research to connect to your research backend.</p></section><section class="demo-panel visible" id="panel-debate"><div class="eyebrow">INTERACTIVE VISUALIZATION</div><h2 class="section-heading">Five agents. One evolving argument.</h2><p class="section-lead">Use Demo Mode for the original animated presentation, or Live Research to display actual LangGraph agent events.</p><!-- local-live-console:start --><div class="live-console" id="live-console">
   <div class="live-console-head"><strong>RESEARCH CONTROL</strong><span id="connection-state" class="conn-label">Demo mode · offline ready</span></div>
   <div class="mode-row"><button id="mode-demo" class="mode-choice active" type="button">▶ Demo Mode</button><button id="mode-live" class="mode-choice" type="button">◉ Live Research</button></div>
   <div id="live-controls" hidden>
     <label for="research-topic">RESEARCH QUESTION</label>
-    <textarea id="research-topic" rows="2" maxlength="500">Will End-to-End AI Replace Traditional Modular ADAS Architectures by 2030?</textarea>
+    <textarea id="research-topic" rows="2" maxlength="500" placeholder="Enter a research question"></textarea><p class="draft-note" id="topic-draft-note" hidden></p>
     <div class="live-actions"><button id="start-live" type="button" class="btn primary">Start Research</button></div>
     <details class="reconnect-tools" id="reconnect-tools">
       <summary>Advanced / Reconnect</summary>
@@ -196,7 +205,7 @@ function updateResearchBeam(agentElement) {
     <div class="run-summary"><span id="run-state">No live run</span><span id="run-round">Waiting for agent events</span></div>
     <div class="live-note">Requires the Vite /api proxy and FastAPI backend. Starting a run executes the real research workflow; the live display is not a scripted replay.</div>
   </div>
-</div><!-- local-live-console:end --><div class="workspace"><section class="arena"><div class="arena-label">◈ DEBATE ARENA · INTERACTIVE DEMO</div><div class="orbit"></div><div class="orbit two"></div><svg class="linklayer" viewBox="0 0 1000 700" preserveAspectRatio="none" aria-hidden="true"><line id="beam" class="beam" x1="500" y1="336" x2="500" y2="112"/></svg><div class="center"><div class="question">RESEARCH QUESTION</div><h2 id="arena-research-question">Will End-to-End AI Replace Modular ADAS by 2030?</h2><small>Evidence · Reasoning · Debate</small></div><div class="agent pi" data-agent="PI"><div class="talk"></div><div class="portrait">🧑‍🚀</div><div class="name">PI</div><div class="role">Research Director</div></div><div class="agent researcher" data-agent="Researcher"><div class="talk"></div><div class="portrait">👩‍🔬</div><div class="name">Researcher</div><div class="role">Evidence Hunter</div></div><div class="agent analyst" data-agent="Analyst"><div class="talk"></div><div class="portrait">🧑‍💻</div><div class="name">Analyst</div><div class="role">Pro / Analysis</div></div><div class="agent critic" data-agent="Critic"><div class="talk"></div><div class="portrait">👩‍⚖️</div><div class="name">Critic</div><div class="role">Con / Challenger</div></div><div class="agent writer" data-agent="Writer"><div class="talk"></div><div class="portrait">🧑‍🎨</div><div class="name">Writer</div><div class="role">Synthesis</div></div><div class="arena-footer"><div class="step" id="step">Ready to begin · 8 debate turns</div><div class="controls"><button class="btn" id="restart">↺ Replay</button><button class="btn primary" id="toggle">Ⅱ Pause</button></div></div></section><aside class="side"><div class="side-head"><h3>◉ Live Debate Transcript</h3><span class="status" id="status">● RUNNING</span></div><div class="feed" id="feed" aria-live="polite"></div><div class="conclusion"><b>◇ EMERGING HYPOTHESIS</b><p>Hybrid architectures may be more plausible than full replacement: learned driving intelligence combined with independent safety supervision and deterministic control.</p></div></aside></div><section class="foot"><div class="legend"><span><i class="dot" style="--c:var(--violet)"></i>PI</span><span><i class="dot" style="--c:var(--cyan)"></i>Researcher</span><span><i class="dot" style="--c:var(--green)"></i>Analyst</span><span><i class="dot" style="--c:var(--pink)"></i>Critic</span><span><i class="dot" style="--c:var(--amber)"></i>Writer</span></div><div>Demo: scripted dialogue · Live: actual backend events</div></section></section><section class="demo-panel" id="panel-architecture"><div class="eyebrow">SYSTEM DESIGN</div><h2 class="section-heading">Local-first, event-driven research orchestration</h2><p class="section-lead">The working V2 prototype uses a FastAPI service to create research runs, LangGraph to coordinate steps, OpenAlex to retrieve research metadata, a locally served LLM for reasoning, and SQLite to persist runs and events. The V3 frontend visualizes events through server-sent events (SSE).</p><div class="workflow"><span class="node">Research topic</span><span class="arr">→</span><span class="node">PI</span><span class="arr">→</span><span class="node">Researcher</span><span class="arr">→</span><span class="node">Analyst</span><span class="arr">→</span><span class="node">Critic</span><span class="arr">↺</span><span class="node">RefineSearch / Review</span><span class="arr">→</span><span class="node">Writer</span></div><div class="tech-list"><div><b>Orchestration · LangGraph</b><span>Agent state, conditional transitions, and bounded critique loops.</span></div><div><b>Inference · llama.cpp</b><span>Local OpenAI-compatible API with Holo-3.1-35B-A3B for the existing prototype.</span></div><div><b>Research retrieval · OpenAlex</b><span>Topic-driven paper search and critique-triggered additional retrieval.</span></div><div><b>Backend · FastAPI + SQLite</b><span>Run creation, persisted events, report storage, and SSE streaming.</span></div><div><b>Frontend · Vite</b><span>Visualizes agent events and progress in a debate-room metaphor.</span></div><div><b>Observability · Planned</b><span>MLflow integration for comparing runs, latency, model configurations, and quality metrics.</span></div></div><div class="result-box"><h3>What makes the system interesting?</h3><p>Critique is not merely an output label: in V2 it can trigger additional evidence retrieval before the workflow returns to analysis. The maximum loop count prevents unbounded execution.</p></div><p class="fineprint">Architecture describes the developed V2 prototype; Live Research connects to its API through the same-origin /api proxy.</p></section><section class="demo-panel" id="panel-results"><div class="eyebrow">EVIDENCE & NEXT STEPS</div><h2 class="section-heading">What we have proven — and what remains open</h2><div class="presentation-grid"><div class="presentation-card"><div class="number">✓</div><h3>Working V2 execution</h3><p>A completed test generated a research report and executed critique-triggered retrieval with twelve unique papers.</p></div><div class="presentation-card"><div class="number">!</div><h3>Grounding limitations</h3><p>Retrieved paper relevance, source attribution, and whether revised analysis actually incorporates new evidence still need stronger checks.</p></div><div class="presentation-card"><div class="number">→</div><h3>Next engineering milestones</h3><p>Evidence quality control, reliable live event mapping, experiment tracking with MLflow, and reproducible evaluation.</p></div></div><div class="result-box"><h3>Illustrative ADAS research hypothesis</h3><p>Complete replacement of modular ADAS by end-to-end AI by 2030 is uncertain. A hybrid architecture — learned driving intelligence paired with independent safety supervision and deterministic control — may be more plausible. <strong>This is a provisional synthesis, not a validated prediction.</strong></p></div><p class="section-lead"><strong>Manager-facing takeaway:</strong> This project demonstrates practical work across local LLM serving, graph-based agent orchestration, external research retrieval, backend APIs, persistent execution state, and an interactive frontend. The next phase is to quantify whether critique improves evidence quality and report reliability.</p><button class="demo-cta" data-go="debate">↺ Return to animated demo</button></section><!-- local-live-report:start --><section class="live-report" id="live-report" hidden><div class="live-console-head"><strong>LIVE RESEARCH REPORT</strong><span id="report-state">Waiting for a completed run</span></div><div class="live-actions"><button id="download-report" class="btn primary" type="button" disabled>↓ Download Markdown</button><button id="show-live-debate" class="btn" type="button">↗ Debate Room</button></div><pre id="report-content">No live report yet.</pre></section><!-- local-live-report:end --><div class="demo-footer"><span>AI RESEARCH LAB · EXECUTIVE SHOWCASE</span><span>V4.1 · Offline demo · Live backend research</span></div></main><script>
+</div><!-- local-live-console:end --><div class="workspace"><section class="arena"><div class="arena-label">◈ DEBATE ARENA · INTERACTIVE DEMO</div><div class="orbit"></div><div class="orbit two"></div><svg class="linklayer" viewBox="0 0 1000 700" preserveAspectRatio="none" aria-hidden="true"><line id="beam" class="beam" x1="500" y1="336" x2="500" y2="112"/></svg><div class="center"><div class="question">RESEARCH QUESTION</div><h2 id="arena-research-question"></h2><small>Evidence · Reasoning · Debate</small></div><div class="agent pi" data-agent="PI"><div class="talk"></div><div class="portrait">🧑‍🚀</div><div class="name">PI</div><div class="role">Research Director</div></div><div class="agent researcher" data-agent="Researcher"><div class="talk"></div><div class="portrait">👩‍🔬</div><div class="name">Researcher</div><div class="role">Evidence Hunter</div></div><div class="agent analyst" data-agent="Analyst"><div class="talk"></div><div class="portrait">🧑‍💻</div><div class="name">Analyst</div><div class="role">Pro / Analysis</div></div><div class="agent critic" data-agent="Critic"><div class="talk"></div><div class="portrait">👩‍⚖️</div><div class="name">Critic</div><div class="role">Con / Challenger</div></div><div class="agent writer" data-agent="Writer"><div class="talk"></div><div class="portrait">🧑‍🎨</div><div class="name">Writer</div><div class="role">Synthesis</div></div><div class="arena-footer"><div class="step" id="step">Ready to begin · 8 debate turns</div><div class="controls"><button class="btn" id="restart">↺ Replay</button><button class="btn primary" id="toggle">Ⅱ Pause</button></div></div></section><aside class="side"><div class="side-head"><h3>◉ Live Debate Transcript</h3><span class="status" id="status">● RUNNING</span></div><div class="feed" id="feed" aria-live="polite"></div><div class="conclusion"><b id="hypothesis-label">◇ EMERGING HYPOTHESIS</b><p id="current-hypothesis" aria-live="polite"></p></div></aside></div><section class="foot"><div class="legend"><span><i class="dot" style="--c:var(--violet)"></i>PI</span><span><i class="dot" style="--c:var(--cyan)"></i>Researcher</span><span><i class="dot" style="--c:var(--green)"></i>Analyst</span><span><i class="dot" style="--c:var(--pink)"></i>Critic</span><span><i class="dot" style="--c:var(--amber)"></i>Writer</span></div><div>Demo: scripted dialogue · Live: actual backend events</div></section></section><section class="demo-panel" id="panel-architecture"><div class="eyebrow">SYSTEM DESIGN</div><h2 class="section-heading">Local-first, event-driven research orchestration</h2><p class="section-lead">The working V2 prototype uses a FastAPI service to create research runs, LangGraph to coordinate steps, OpenAlex to retrieve research metadata, a locally served LLM for reasoning, and SQLite to persist runs and events. The V3 frontend visualizes events through server-sent events (SSE).</p><div class="workflow"><span class="node">Research topic</span><span class="arr">→</span><span class="node">PI</span><span class="arr">→</span><span class="node">Researcher</span><span class="arr">→</span><span class="node">Analyst</span><span class="arr">→</span><span class="node">Critic</span><span class="arr">↺</span><span class="node">RefineSearch / Review</span><span class="arr">→</span><span class="node">Writer</span></div><div class="tech-list"><div><b>Orchestration · LangGraph</b><span>Agent state, conditional transitions, and bounded critique loops.</span></div><div><b>Inference · llama.cpp</b><span>Local OpenAI-compatible API with Holo-3.1-35B-A3B for the existing prototype.</span></div><div><b>Research retrieval · OpenAlex</b><span>Topic-driven paper search and critique-triggered additional retrieval.</span></div><div><b>Backend · FastAPI + SQLite</b><span>Run creation, persisted events, report storage, and SSE streaming.</span></div><div><b>Frontend · Vite</b><span>Visualizes agent events and progress in a debate-room metaphor.</span></div><div><b>Observability · Planned</b><span>MLflow integration for comparing runs, latency, model configurations, and quality metrics.</span></div></div><div class="result-box"><h3>What makes the system interesting?</h3><p>Critique is not merely an output label: in V2 it can trigger additional evidence retrieval before the workflow returns to analysis. The maximum loop count prevents unbounded execution.</p></div><p class="fineprint">Architecture describes the developed V2 prototype; Live Research connects to its API through the same-origin /api proxy.</p></section><section class="demo-panel" id="panel-results"><div class="eyebrow">EVIDENCE & NEXT STEPS</div><h2 class="section-heading">What we have proven — and what remains open</h2><div class="presentation-grid"><div class="presentation-card"><div class="number">✓</div><h3>Working V2 execution</h3><p>A completed test generated a research report and executed critique-triggered retrieval with twelve unique papers.</p></div><div class="presentation-card"><div class="number">!</div><h3>Grounding limitations</h3><p>Retrieved paper relevance, source attribution, and whether revised analysis actually incorporates new evidence still need stronger checks.</p></div><div class="presentation-card"><div class="number">→</div><h3>Next engineering milestones</h3><p>Evidence quality control, reliable live event mapping, experiment tracking with MLflow, and reproducible evaluation.</p></div></div><div class="result-box demo-topic-example"><h3>Illustrative ADAS research hypothesis</h3><p>Complete replacement of modular ADAS by end-to-end AI by 2030 is uncertain. A hybrid architecture — learned driving intelligence paired with independent safety supervision and deterministic control — may be more plausible. <strong>This is a provisional synthesis, not a validated prediction.</strong></p></div><p class="section-lead"><strong>Manager-facing takeaway:</strong> This project demonstrates practical work across local LLM serving, graph-based agent orchestration, external research retrieval, backend APIs, persistent execution state, and an interactive frontend. The next phase is to quantify whether critique improves evidence quality and report reliability.</p><button class="demo-cta" data-go="debate">↺ Return to animated demo</button></section><!-- local-live-report:start --><section class="live-report" id="live-report" hidden><div class="live-console-head"><strong>LIVE RESEARCH REPORT</strong><span id="report-state">Waiting for a completed run</span></div><div class="live-actions"><button id="download-report" class="btn primary" type="button" disabled>↓ Download Markdown</button><button id="show-live-debate" class="btn" type="button">↗ Debate Room</button></div><pre id="report-content">No live report yet.</pre></section><!-- local-live-report:end --><div class="demo-footer"><span>AI RESEARCH LAB · EXECUTIVE SHOWCASE</span><span>V4.1 · Offline demo · Live backend research</span></div></main><script>
 // One layout model for Demo and Live. Coordinates are local to the arena's
 // content box; all dimensions and agent bounds come from rendered DOM geometry.
 let arenaLayoutActive=false, arenaLayoutPending=false, arenaLayoutKey='';
@@ -280,178 +289,261 @@ layoutArena();
 const panels=['overview','debate','architecture','results'];
 function selectPanel(name){if(!panels.includes(name))return;document.querySelectorAll('.demo-panel').forEach(el=>el.classList.toggle('visible',el.id==='panel-'+name));document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('selected',b.dataset.tab===name));window.scrollTo({top:0,behavior:'smooth'});refreshBeam();}
 document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>selectPanel(b.dataset.tab)));
-document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>{selectPanel(b.dataset.go);if(b.dataset.go==='debate' && currentMode==='demo')restart()}));
+document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>{selectPanel(b.dataset.go);if(b.dataset.go==='debate' && researchState.mode==='demo')restart()}));
 document.addEventListener('keydown',e=>{if(e.target.matches('input,textarea'))return;const current=panels.findIndex(p=>document.getElementById('panel-'+p).classList.contains('visible'));if(e.key==='ArrowRight')selectPanel(panels[Math.min(3,current+1)]);if(e.key==='ArrowLeft')selectPanel(panels[Math.max(0,current-1)]);});
-const turns=[{agent:'PI',text:'Our question: can end-to-end learning fully replace modular ADAS by 2030? Define what “replace” actually means.'},{agent:'Researcher',text:'Evidence suggests rapid progress in learned perception and planning. However, deployment evidence and safety validation must be assessed separately.'},{agent:'Analyst',text:'End-to-end approaches can reduce hand-designed interfaces and optimize behavior across perception and planning.'},{agent:'Critic',text:'But how do we verify rare failure cases? A strong benchmark score is not proof of safety in open-world driving.'},{agent:'Researcher',text:'I will look for evidence on safety validation, out-of-distribution robustness, and real-world deployment constraints.'},{agent:'Analyst',text:'A layered design may combine learned trajectory generation with independent safety checks and lower-level controllers.'},{agent:'Critic',text:'We should distinguish a plausible engineering direction from a proven 2030 prediction. The evidence remains incomplete.'},{agent:'Writer',text:'Provisional synthesis: hybrid ADAS architectures appear more plausible than complete replacement. Open questions remain.'}];const colors={PI:'#b39bff',Researcher:'#48e4ff',Analyst:'#68f5bd',Critic:'#ff88b2',Writer:'#ffd178'};let index=0,playing=true,timer;const feed=document.getElementById('feed'),toggle=document.getElementById('toggle'),status=document.getElementById('status'),step=document.getElementById('step'),beam=document.getElementById('beam');function clearActive(){document.querySelectorAll('.agent').forEach(el=>el.classList.remove('active'));beam.classList.remove('show')}function showTurn(){if(index>=turns.length){clearActive();playing=false;toggle.textContent='▶ Play Again';status.textContent='● COMPLETED';step.textContent='Debate complete · 8 turns';return}let t=turns[index];clearActive();let el=document.querySelector(`[data-agent="${t.agent}"]`);el.classList.add('active');el.querySelector('.talk').textContent=t.text;updateResearchBeam(el);beam.style.stroke=colors[t.agent];beam.classList.add('show');let msg=document.createElement('div');msg.className='msg';msg.style.setProperty('--accent',colors[t.agent]);let who=document.createElement('div');who.className='who';let name=document.createElement('span');name.textContent=t.agent;let tm=document.createElement('time');tm.textContent=`TURN ${String(index+1).padStart(2,'0')}`;who.append(name,tm);let p=document.createElement('p');p.textContent=t.text;msg.append(who,p);feed.appendChild(msg);feed.scrollTop=feed.scrollHeight;step.textContent=`Turn ${index+1} / ${turns.length} · ${t.agent} speaking`;index++}function schedule(){clearTimeout(timer);if(playing){timer=setTimeout(()=>{showTurn();schedule()},3300)}}function restart(){clearTimeout(timer);feed.innerHTML='';index=0;playing=true;toggle.textContent='Ⅱ Pause';status.textContent='● RUNNING';showTurn();schedule()}toggle.onclick=()=>{if(currentMode==='live')return;if(index>=turns.length){restart();return}playing=!playing;toggle.textContent=playing?'Ⅱ Pause':'▶ Resume';status.textContent=playing?'● RUNNING':'Ⅱ PAUSED';if(playing)schedule();else clearTimeout(timer)};document.getElementById('restart').onclick=()=>{if(currentMode==='demo')restart()};restart();
+const DEMO_TOPIC='Will End-to-End AI Replace Modular ADAS by 2030?';
+const DEMO_HYPOTHESIS='Hybrid architectures may be more plausible than full replacement: learned driving intelligence combined with independent safety supervision and deterministic control.';
+const researchState={
+  mode:'demo',activeRunId:null,activeTopic:DEMO_TOPIC,runStatus:'ready',
+  agentEvents:[],currentHypothesis:'Discussion in progress. The agents have not reached a conclusion.',finalReport:'',
+  draftTopic:DEMO_TOPIC,draftRunId:'',draftDirty:false,currentAgent:null,
+  connectionStatus:'Demo mode · offline ready',error:'',reviewRound:null,
+};
+const $=id=>document.getElementById(id);
+const colors={PI:'#b39bff',Researcher:'#48e4ff',Analyst:'#68f5bd',Critic:'#ff88b2',Writer:'#ffd178'};
+const feed=$('feed'),toggle=$('toggle'),status=$('status'),step=$('step'),beam=$('beam');
+const turns=[{agent:'PI',text:'Our question: can end-to-end learning fully replace modular ADAS by 2030? Define what “replace” actually means.'},{agent:'Researcher',text:'Evidence suggests rapid progress in learned perception and planning. However, deployment evidence and safety validation must be assessed separately.'},{agent:'Analyst',text:'End-to-end approaches can reduce hand-designed interfaces and optimize behavior across perception and planning.'},{agent:'Critic',text:'But how do we verify rare failure cases? A strong benchmark score is not proof of safety in open-world driving.'},{agent:'Researcher',text:'I will look for evidence on safety validation, out-of-distribution robustness, and real-world deployment constraints.'},{agent:'Analyst',text:'A layered design may combine learned trajectory generation with independent safety checks and lower-level controllers.'},{agent:'Critic',text:'We should distinguish a plausible engineering direction from a proven 2030 prediction. The evidence remains incomplete.'},{agent:'Writer',text:'Provisional synthesis: hybrid ADAS architectures appear more plausible than complete replacement. Open questions remain.'}];
+let index=0,timer;
+function text(id,value){const el=$(id);if(el&&el.textContent!==value){el.textContent=value;return true;}return false;}
+function clearActive(){document.querySelectorAll('.agent').forEach(el=>el.classList.remove('active'));beam.classList.remove('show');researchState.currentAgent=null;}
+function clearSessionDisplay(){clearActive();feed.replaceChildren();document.querySelectorAll('.agent .talk').forEach(el=>el.textContent='');}
+function renderSession(){
+  const s=researchState,demo=s.mode==='demo';
+  document.documentElement.dataset.researchMode=s.mode;
+  document.querySelectorAll('.demo-topic-example').forEach(el=>el.hidden=!demo);
+  const changed=text('arena-research-question',s.activeTopic||(s.runStatus==='connecting'?'Loading selected research topic…':'Awaiting Research'));
+  const input=$('research-topic');if(input&&input.value!==s.draftTopic)input.value=s.draftTopic;
+  const idInput=$('run-id');if(idInput&&idInput.value!==s.draftRunId)idInput.value=s.draftRunId;
+  text('current-hypothesis',s.currentHypothesis);
+  text('hypothesis-label',demo?(s.runStatus==='completed'?'◇ FINAL RESEARCH SYNTHESIS':'◇ DISCUSSION IN PROGRESS'):!demo&&s.runStatus==='completed'?'◇ CURRENT RUN CONCLUSION':!demo&&s.runStatus==='failed'?'◇ RESEARCH FAILED':'◇ EMERGING HYPOTHESIS');
+  text('report-content',s.finalReport||(!demo&&s.runStatus==='failed'?'No report available for this failed research session.':'No completed report for this session.'));
+  text('report-state',s.finalReport?'Completed · '+s.activeTopic:!demo&&s.runStatus==='failed'?'Failed':'Waiting for a completed run');
+  const download=$('download-report');if(download)download.disabled=demo||s.runStatus!=='completed'||!s.activeRunId||!s.finalReport;
+  const report=$('live-report');if(report)report.hidden=demo;
+  const controls=$('live-controls');if(controls)controls.hidden=demo;
+  const start=$('start-live');if(start)start.disabled=!demo&&s.runStatus==='creating';
+  $('restart').disabled=!demo;toggle.disabled=!demo;
+  $('restart').textContent=demo?'↺ Replay':'Demo replay';
+  if(!demo)toggle.textContent='Demo playback';
+  for(const control of [$('restart'),toggle])control.title=demo?'':'Playback controls are available in scripted Demo Mode.';
+  for(const mode of ['demo','live'])$('mode-'+mode)?.classList.toggle('active',mode===s.mode);
+  const labels={ready:'○ Ready',creating:'● Starting Research',connecting:'● Connecting',running:'● Research Running',queued:'● Research Queued',completed:'✓ Research Completed',failed:'✕ Research Failed',unavailable:'✕ Run Unavailable',unknown:'○ Status Unknown'};
+  text('run-state',labels[s.runStatus]||'○ Status Unknown');if($('run-state'))$('run-state').dataset.status=s.runStatus;
+  text('connection-state',s.connectionStatus);text('live-error',s.error);if($('live-error'))$('live-error').hidden=!s.error;
+  text('run-round',s.reviewRound?'Review round '+s.reviewRound:s.agentEvents.length?s.agentEvents.length+' events received':'Waiting for agent events');
+  const draft=$('topic-draft-note');if(draft){draft.hidden=demo||!s.activeTopic||s.draftTopic.trim()===s.activeTopic;draft.textContent='Draft for a new run. The active research question remains unchanged until you start it.';}
+  document.querySelector('.arena-label').textContent=demo?'◈ DEBATE ARENA · INTERACTIVE DEMO':'◈ DEBATE ARENA · LIVE RESEARCH';
+  document.querySelector('.side-head h3').textContent=demo?'◉ Scripted Debate Transcript':'◉ Live Research Transcript';
+  text('live',demo?'V4.1 · SCRIPTED DEMO':'LIVE RESEARCH · '+s.runStatus.toUpperCase());
+  $('live').dataset.status=demo?'demo':s.runStatus;status.dataset.status=s.runStatus;
+  status.textContent=demo?(s.runStatus==='paused'?'Ⅱ PAUSED':'● '+s.runStatus.toUpperCase()):'● '+s.runStatus.toUpperCase();
+  if(demo){
+    toggle.textContent=s.runStatus==='completed'?'▶ Play Again':s.runStatus==='running'?'Ⅱ Pause':'▶ Resume';
+    step.textContent=s.runStatus==='completed'?'Debate complete · 8 turns':`Turn ${index} / ${turns.length} · ${s.currentAgent||'Demo'} speaking`;
+  }else{
+    step.textContent=s.runStatus==='completed'?'Research completed · '+s.agentEvents.length+' events':s.runStatus==='failed'?'Research failed':s.runStatus==='ready'?'Ready for live research':s.agentEvents.length?'Live event '+s.agentEvents.length+' · '+(s.agentEvents.at(-1).agent):s.runStatus==='creating'?'Starting research…':'Waiting for research events';
+  }
+  if(changed)refreshBeam();
+}
+function appendAgentEvent(event){
+  const s=researchState;s.agentEvents.push(event);clearActive();
+  const el=Object.hasOwn(colors,event.agent)?document.querySelector(`[data-agent="${event.agent}"]`):null;
+  if(el){
+    el.querySelector('.talk').textContent=event.message.slice(0,220);
+    if(s.mode==='demo'||!['completed','failed','unavailable'].includes(s.runStatus)){
+      s.currentAgent=event.agent;el.classList.add('active');updateResearchBeam(el);beam.style.stroke=colors[event.agent];beam.classList.add('show');
+    }
+  }
+  const msg=document.createElement('div');msg.className='msg';msg.style.setProperty('--accent',colors[event.agent]||'#90a9d1');
+  const who=document.createElement('div');who.className='who';const name=document.createElement('span');name.textContent=event.agent;
+  const tm=document.createElement('time');tm.textContent=s.mode==='demo'?`TURN ${String(event.turn).padStart(2,'0')}`:event.ts?new Date(event.ts).toLocaleTimeString():'EVENT '+s.agentEvents.length;
+  const p=document.createElement('p');p.textContent=event.message;who.append(name,tm);msg.append(who,p);feed.append(msg);feed.scrollTop=feed.scrollHeight;
+  renderSession();
+}
+function showTurn(){
+  if(researchState.mode!=='demo')return;
+  if(index>=turns.length){researchState.runStatus='completed';researchState.currentHypothesis=DEMO_HYPOTHESIS;clearActive();renderSession();return;}
+  const t=turns[index++];
+    appendAgentEvent({id:'demo-'+index,runId:null,agent:t.agent,message:t.text,turn:index});
+    if(index===turns.length && t.agent==='Writer'){
+      researchState.runStatus='completed';
+      researchState.currentHypothesis=DEMO_HYPOTHESIS;
+      clearTimeout(timer);
+      clearActive();
+      renderSession();
+    }
+}
+function schedule(){clearTimeout(timer);if(researchState.mode==='demo'&&researchState.runStatus==='running')timer=setTimeout(()=>{if(researchState.mode==='demo'&&researchState.runStatus==='running'){showTurn();schedule();}},3300);}
+function restart(){
+  if(researchState.mode!=='demo')return;
+  clearTimeout(timer);clearSessionDisplay();index=0;
+  Object.assign(researchState,{activeRunId:null,activeTopic:DEMO_TOPIC,runStatus:'running',agentEvents:[],currentHypothesis:'Discussion in progress. The agents have not reached a conclusion.',finalReport:'',draftTopic:DEMO_TOPIC,draftRunId:'',draftDirty:false,connectionStatus:'Demo mode · offline ready',error:'',reviewRound:null});
+  showTurn();schedule();
+}
+toggle.onclick=()=>{if(researchState.mode!=='demo')return;if(researchState.runStatus==='completed'){restart();return;}researchState.runStatus=researchState.runStatus==='running'?'paused':'running';renderSession();if(researchState.runStatus==='running')schedule();else clearTimeout(timer);};
+$('restart').onclick=restart;
+restart();
 
 // @local-live:start
-// V4.1 live adapter: no dependencies; original executive navigation and demo are retained.
-let currentMode='demo';
-let liveRunId=null,liveSource=null,pollTimer=null,liveSeen=new Set(),liveCount=0;
-let liveReportText='';
-const $=id=>document.getElementById(id);
+// Transport lifetimes are separate from researchState: every callback must own
+// the current context, generation AND run ID, including reconnecting to the same ID.
+let sessionGeneration=0,liveContext=null;
+const RUN_ID=/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+const SESSION_KEY='ai-research-lab.active-session.v1';
 const apiPath=path=>'/api'+path;
-function liveMessage(message){$('live-error').textContent=message;$('live-error').hidden=!message;}
-function setConn(message){$('connection-state').textContent=message;}
-function closeLive(){if(liveSource){liveSource.close();liveSource=null;}if(pollTimer){clearInterval(pollTimer);pollTimer=null;}}
-function clearLiveDisplay(){clearActive();feed.replaceChildren();document.querySelectorAll('.agent .talk').forEach(el=>el.textContent='');liveSeen.clear();liveCount=0;liveReportText='';$('download-report').disabled=true;$('report-content').textContent='No live report yet.';$('report-state').textContent='Waiting for a completed run';$('run-round').textContent='Waiting for agent events';}
+function currentContext(ctx){return !!ctx&&ctx===liveContext&&ctx.generation===sessionGeneration&&researchState.mode==='live'&&researchState.activeRunId===ctx.runId;}
+function rememberSession(){try{sessionStorage.setItem(SESSION_KEY,JSON.stringify({mode:researchState.mode,runId:researchState.activeRunId,topic:researchState.activeTopic}));}catch{}}
+function closeLive(){
+  sessionGeneration++;clearTimeout(timer);
+  if(liveContext){liveContext.source?.close();clearInterval(liveContext.pollTimer);for(const c of liveContext.controllers)c.abort();}
+  liveContext=null;
+}
+function beginLiveSession(runId=null,topic='',runStatus='ready'){
+  closeLive();clearSessionDisplay();index=0;
+  Object.assign(researchState,{mode:'live',activeRunId:runId,activeTopic:topic,runStatus,agentEvents:[],currentHypothesis:runStatus==='creating'?'Analysis in progress':'Awaiting Research',finalReport:'',draftTopic:topic,draftRunId:runId||'',draftDirty:false,currentAgent:null,connectionStatus:runStatus==='ready'?'Live mode · ready':runStatus==='creating'?'Starting research…':'Loading selected run…',error:'',reviewRound:null});
+  const ctx={generation:sessionGeneration,runId,controllers:new Set(),seen:new Set(),source:null,streamStarted:false,streamDone:false,pollTimer:null,pollPromise:null,metadataReady:false};
+  liveContext=ctx;rememberSession();renderSession();return ctx;
+}
 function switchMode(mode){
-  if(mode===currentMode)return;
-  currentMode=mode;clearTimeout(timer);closeLive();
-  $('mode-demo').classList.toggle('active',mode==='demo');$('mode-live').classList.toggle('active',mode==='live');
-  $('live-controls').hidden=mode!=='live';
-  $('restart').disabled=mode==='live';$('toggle').disabled=mode==='live';
-  liveMessage('');syncResearchQuestion();
-  if(mode==='demo'){$('live-report').hidden=true;setConn('Demo mode · offline ready');restart();}
-  else{playing=false;clearLiveDisplay();status.textContent='● READY';step.textContent='Ready for live research';setConn('Live mode · connect to /api');$('live-report').hidden=false;}
+  if(mode===researchState.mode)return;
+  if(mode==='demo'){closeLive();researchState.mode='demo';restart();rememberSession();}
+  else if(mode==='live')beginLiveSession();
 }
 $('mode-demo').addEventListener('click',()=>switchMode('demo'));
 $('mode-live').addEventListener('click',()=>switchMode('live'));
-function renderLiveEvent(ev){
-  const id=ev.id!=null?String(ev.id):JSON.stringify(ev);
-  if(liveSeen.has(id))return;
-  liveSeen.add(id);
-  const agent=String(ev.agent||'System');const message=String(ev.message||'');
-  if(!message)return;
-  const el=document.querySelector('.agent[data-agent="'+agent+'"]');
-  clearActive();
-  if(el){
-    el.classList.add('active');el.querySelector('.talk').textContent=message.slice(0,220);
-    updateResearchBeam(el);
-    beam.style.stroke=colors[agent]||'#48e4ff';beam.classList.add('show');
-  }
-  const msg=document.createElement('div');msg.className='msg';msg.style.setProperty('--accent',colors[agent]||'#90a9d1');
-  const who=document.createElement('div');who.className='who';
-  const name=document.createElement('span');name.textContent=agent;
-  const tm=document.createElement('time');tm.textContent=ev.ts?new Date(ev.ts).toLocaleTimeString():'EVENT '+(liveCount+1);
-  who.append(name,tm);
-  const p=document.createElement('p');p.textContent=message;
-  msg.append(who,p);feed.append(msg);feed.scrollTop=feed.scrollHeight;
-  liveCount++;step.textContent='Live event '+liveCount+' · '+agent;
-  const round=message.match(/round\s*(\d+)/i);
-  if(round)$('run-round').textContent='Review round '+round[1];
-}
-async function requestJSON(path,options){
-  const res=await fetch(apiPath(path),{cache:'no-store',...options});
-  if(!res.ok){let body='';try{body=(await res.text()).slice(0,250)}catch{}throw new Error('HTTP '+res.status+' · '+(body||res.statusText));}
-  return await res.json();
-}
-async function refreshRun(){
-  if(!liveRunId||currentMode!=='live')return;
-  try{
-    const data=await requestJSON('/runs/'+encodeURIComponent(liveRunId));
-    if(currentMode!=='live'||data.id!==liveRunId)return;
-    if(data.topic){$('research-topic').value=data.topic;syncResearchQuestion();}
-    const state=String(data.status||'unknown');
-    $('run-state').textContent=state;
-    status.textContent='● '+state.toUpperCase();
-    setConn('Backend connected · '+state);
-    if(state==='completed'){
-      liveReportText=String(data.report||'');
-      $('report-content').textContent=liveReportText||'Completed; no report text returned.';
-      $('report-state').textContent='Completed';$('download-report').disabled=!liveReportText;
-      step.textContent='Research completed · '+liveCount+' events';if(pollTimer){clearInterval(pollTimer);pollTimer=null;}
-    }else if(state==='failed'){
-      liveMessage('Research failed: '+String(data.error||'Unknown error'));
-      $('report-state').textContent='Failed';if(pollTimer){clearInterval(pollTimer);pollTimer=null;}
-    }
-  }catch(err){setConn('Backend connection problem');liveMessage('Run status: '+err.message);}
-}
-function attachRun(id){
-  closeLive();clearLiveDisplay();liveMessage('');
-  liveRunId=id;$('run-id').value=id;$('run-state').textContent='Connecting';
-  status.textContent='● CONNECTING';setConn('Connecting to live events…');
-  // EventSource automatically reconnects on transient network errors.
-  liveSource=new EventSource(apiPath('/runs/'+encodeURIComponent(id)+'/events'));
-  liveSource.onmessage=e=>{try{renderLiveEvent(JSON.parse(e.data))}catch(err){liveMessage('Invalid event: '+err.message)}};
-  liveSource.addEventListener('done',()=>{if(liveSource){liveSource.close();liveSource=null;}refreshRun();});
-  liveSource.onerror=()=>{if(currentMode==='live')setConn('Event stream interrupted · reconnecting');};
-  pollTimer=setInterval(refreshRun,3000);refreshRun();
-}
-$('start-live').addEventListener('click',async()=>{
-  const topic=$('research-topic').value.trim();
-  if(topic.length<10||topic.length>500){liveMessage('Research question must contain 10–500 characters.');return;}
-  const button=$('start-live');button.disabled=true;liveMessage('');
-  try{const data=await requestJSON('/runs',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({topic})});
-    if(!data.id)throw new Error('Backend did not return a Run ID');
-    attachRun(String(data.id));
-  }catch(err){liveMessage('Could not start research: '+err.message);setConn('Start failed');}
-  finally{button.disabled=false;}
-});
-$('reconnect-live').addEventListener('click',()=>{
-  const id=$('run-id').value.trim();
-  if(!/^[0-9a-f]{8}-[0-9a-f-]{27,}$/i.test(id)){liveMessage('Enter a valid run UUID.');return;}
-  attachRun(id);
-});
-$('download-report').addEventListener('click',()=>{
-  if(!liveReportText)return;
-  const blob=new Blob([liveReportText],{type:'text/markdown;charset=utf-8'});
-  const url=URL.createObjectURL(blob);const a=document.createElement('a');
-  a.href=url;a.download='AI-Research-Lab-'+(liveRunId||'report')+'.md';document.body.append(a);a.click();a.remove();
-  setTimeout(()=>URL.revokeObjectURL(url),1000);
-});
-$('show-live-debate').addEventListener('click',()=>selectPanel('debate'));
-// Make the live report available in Results & Roadmap without replacing the original content.
-const resultsPanel=$('panel-results');resultsPanel.appendChild($('live-report'));
-window.addEventListener('beforeunload',closeLive);
-// @local-live:end
-</script>
-<script id="v41-topic-sync">
-const demoQuestion = 'Will End-to-End AI Replace Modular ADAS by 2030?';
-function syncResearchQuestion(){
-  $('arena-research-question').textContent=currentMode==='demo'?demoQuestion:($('research-topic').value.trim()||'Enter a research question');
-  refreshBeam();
-}
+function syncResearchQuestion(){researchState.draftTopic=$('research-topic').value;researchState.draftDirty=true;renderSession();}
 $('research-topic').addEventListener('input',syncResearchQuestion);
 $('research-topic').addEventListener('change',syncResearchQuestion);
-syncResearchQuestion();
-</script>
-
-
-<script id="v41-status-sync">
-(function () {
-    const el = document.getElementById('run-state');
-    if (!el) return;
-
-    const labels = {
-        running: '● Research Running',
-        completed: '✓ Research Completed',
-        failed: '✕ Research Failed',
-        ready: '○ Ready'
-    };
-
-    function update() {
-        const raw = el.textContent.toLowerCase();
-        const status =
-            raw.includes('failed') ? 'failed' :
-            raw.includes('completed') ? 'completed' :
-            raw.includes('running') ? 'running' : 'ready';
-
-        el.dataset.status = status;
-        const label = labels[status];
-
-        if (el.textContent !== label) {
-            el.textContent = label;
-        }
+$('run-id').addEventListener('input',()=>{researchState.draftRunId=$('run-id').value;});
+async function requestJSON(path,options={},ctx=liveContext){
+  const controller=new AbortController();ctx?.controllers.add(controller);
+  try{
+    const res=await fetch(apiPath(path),{cache:'no-store',...options,signal:controller.signal});
+    if(!res.ok){const body=(await res.text()).slice(0,250);const error=new Error('HTTP '+res.status+' · '+(body||res.statusText));error.status=res.status;throw error;}
+    return await res.json();
+  }finally{ctx?.controllers.delete(controller);}
+}
+function conclusionFromReport(report){
+  // Quote a report section; never infer a conclusion from generic agent chatter.
+  if(!report.trim())return 'Completed — no report was returned for this run.';
+  const lines=report.split('\n'),sections=[];
+  let fence=null;
+  for(let i=0;i<lines.length;i++){
+    const marker=lines[i].match(/^\s{0,3}(`{3,}|~{3,})/);
+    if(marker){if(!fence)fence=marker[1][0];else if(marker[1][0]===fence)fence=null;continue;}
+    if(fence)continue;
+    const heading=lines[i].match(/^\s{0,3}(#{1,6})\s+(.+?)\s*#*\s*$/);
+    const underlined=i+1<lines.length&&/^\s*(?:={3,}|-{3,})\s*$/.test(lines[i+1]);
+    const bold=lines[i].match(/^\s*\*\*(.+?)\*\*\s*:?[ \t]*$/);
+    if(heading||underlined||bold)sections.push({start:i+(underlined?2:1),heading:i,level:heading?heading[1].length:underlined&&lines[i+1].includes('=')?1:2,title:heading?heading[2]:bold?bold[1]:lines[i]});
+  }
+  const cleanTitle=s=>s.replace(/[*_`]/g,'').replace(/^\s*(?:\d+[.)]?\s*)+/,'').trim();
+  for(const pattern of [/^(?:conclusions?|final synthesis|结论|总结|结语)\b|^(?:结论|总结|结语)/i,/^executive summary\b/i]){
+    for(const section of sections){
+      if(!pattern.test(cleanTitle(section.title)))continue;
+      const next=sections.find(s=>s.heading>=section.start&&s.level<=section.level);
+      const value=lines.slice(section.start,next?next.heading:lines.length).join('\n').trim();
+      if(value)return /^executive summary\b/i.test(cleanTitle(section.title))?'Executive summary (from this run’s report):\n'+value:value;
     }
-
-    new MutationObserver(update).observe(el, {
-        childList: true,
-        characterData: true,
-        subtree: true
+  }
+  return 'Completed — no conclusion section was found. View the current run’s report.';
+}
+function renderLiveEvent(ev,ctx=liveContext){
+  if(!currentContext(ctx)||!ctx.metadataReady||typeof ev.run_id!=='string'||ev.run_id.toLowerCase()!==ctx.runId)return false;
+  if(typeof ev.message!=='string'||!ev.message.trim())return false;
+  const id=ev.id!=null?String(ev.id):JSON.stringify(ev);if(ctx.seen.has(id))return false;ctx.seen.add(id);
+  const match=ev.message.match(/round\s*(\d+)/i);if(match)researchState.reviewRound=Number(match[1]);
+  appendAgentEvent({id,runId:ctx.runId,agent:String(ev.agent||'System'),message:ev.message,ts:ev.ts});return true;
+}
+function openLiveStream(ctx){
+  if(!currentContext(ctx)||!ctx.metadataReady||ctx.streamStarted)return;
+  try{
+    const source=new EventSource(apiPath('/runs/'+encodeURIComponent(ctx.runId)+'/events'));ctx.source=source;ctx.streamStarted=true;
+    source.onopen=()=>{if(currentContext(ctx)&&ctx.source===source&&!ctx.streamDone){researchState.connectionStatus='Connected to research events';researchState.error='';renderSession();}};
+    source.onmessage=e=>{if(!currentContext(ctx)||ctx.source!==source||ctx.streamDone)return;try{renderLiveEvent(JSON.parse(e.data),ctx);}catch{researchState.error='An invalid research event was received.';renderSession();}};
+    source.onerror=()=>{if(currentContext(ctx)&&ctx.source===source&&!ctx.streamDone){researchState.connectionStatus='Event stream interrupted · reconnecting';renderSession();}};
+    source.addEventListener('done',()=>{
+      if(!currentContext(ctx)||ctx.source!==source)return;
+      ctx.streamDone=true;source.close();ctx.source=null;
+      if(ctx.pollPromise)ctx.pollPromise.then(()=>{if(currentContext(ctx))refreshRun(ctx);});else refreshRun(ctx);
     });
+  }catch(error){if(currentContext(ctx)){researchState.connectionStatus='Could not connect to research events';researchState.error=error.message;renderSession();}}
+}
+function refreshRun(ctx=liveContext){
+  if(!currentContext(ctx)||!ctx.runId)return Promise.resolve(false);
+  if(ctx.pollPromise)return ctx.pollPromise;
+  ctx.pollPromise=(async()=>{
+    try{
+      const data=await requestJSON('/runs/'+encodeURIComponent(ctx.runId),{},ctx);
+      if(!currentContext(ctx))return false;
+      if(typeof data.id!=='string'||data.id.toLowerCase()!==ctx.runId)throw new Error('Backend returned a different run.');
+      if(typeof data.topic!=='string'||!data.topic.trim())throw new Error('The selected run has no research topic.');
+      ctx.metadataReady=true;
+      researchState.activeTopic=data.topic;
+      if(!researchState.draftDirty)researchState.draftTopic=data.topic;
+      const state=String(data.status||'unknown');
+      researchState.runStatus=state;researchState.error='';researchState.connectionStatus='Backend connected · '+state;
+      researchState.finalReport=state==='completed'&&typeof data.report==='string'?data.report:'';
+      researchState.currentHypothesis=state==='completed'?conclusionFromReport(researchState.finalReport):state==='failed'?'Research failed. No conclusion is available for this run.':['running','queued'].includes(state)?'Analysis in progress':'Awaiting Research';
+      if(state==='failed'){researchState.error='Research failed: '+String(data.error||'Unknown error');clearActive();}
+      if(state==='completed')clearActive();
+      if(['completed','failed'].includes(state)){clearInterval(ctx.pollTimer);ctx.pollTimer=null;}
+      rememberSession();renderSession();openLiveStream(ctx);return true;
+    }catch(error){
+      if(!currentContext(ctx)||error.name==='AbortError')return false;
+      researchState.connectionStatus='Research connection problem';researchState.error='Run status: '+error.message;
+      if(error.status===404){researchState.runStatus='unavailable';researchState.finalReport='';clearActive();ctx.source?.close();ctx.source=null;ctx.streamDone=true;researchState.currentHypothesis='The selected run could not be loaded. No conclusion is available.';clearInterval(ctx.pollTimer);ctx.pollTimer=null;}
+      renderSession();return false;
+    }
+  })().finally(()=>{ctx.pollPromise=null;});return ctx.pollPromise;
+}
+function watchRun(ctx){ctx.pollTimer=setInterval(()=>refreshRun(ctx),3000);return refreshRun(ctx);}
+function attachRun(id,topicHint=''){
+  if(researchState.mode!=='live'||!RUN_ID.test(id)){researchState.error='Enter a valid run UUID.';renderSession();return Promise.resolve(false);}
+  const ctx=beginLiveSession(id.toLowerCase(),topicHint,'connecting');return watchRun(ctx);
+}
+$('start-live').addEventListener('click',async()=>{
+  if(researchState.mode!=='live'||researchState.runStatus==='creating')return;
+  const topic=$('research-topic').value.trim();
+  if(topic.length<10||topic.length>500){researchState.error='Research question must contain 10–500 characters.';renderSession();return;}
+  const ctx=beginLiveSession(null,topic,'creating');
+  try{
+    const data=await requestJSON('/runs',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({topic})},ctx);
+    if(!currentContext(ctx))return;
+    if(typeof data.id!=='string'||!RUN_ID.test(data.id))throw new Error('Backend did not return a valid Run ID.');
+    ctx.runId=data.id.toLowerCase();researchState.activeRunId=ctx.runId;researchState.draftRunId=ctx.runId;researchState.runStatus='connecting';
+    rememberSession();renderSession();await watchRun(ctx);
+  }catch(error){
+    if(!currentContext(ctx)||error.name==='AbortError')return;
+    researchState.runStatus='failed';researchState.currentHypothesis='Research could not be started. No conclusion is available.';researchState.error='Could not start research: '+error.message;researchState.connectionStatus='Start failed';renderSession();
+  }
+});
+$('reconnect-live').addEventListener('click',()=>attachRun($('run-id').value.trim()));
+$('download-report').addEventListener('click',()=>{
+  const s=researchState;if(s.mode!=='live'||s.runStatus!=='completed'||!s.activeRunId||!s.finalReport)return;
+  const blob=new Blob([s.finalReport],{type:'text/markdown;charset=utf-8'}),url=URL.createObjectURL(blob),a=document.createElement('a');
+  a.href=url;a.download='AI-Research-Lab-'+s.activeRunId+'.md';document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+});
+$('show-live-debate').addEventListener('click',()=>selectPanel('debate'));
+$('panel-results').appendChild($('live-report'));
+window.addEventListener('beforeunload',()=>{rememberSession();closeLive();});
+// Restore only a selected run reference. Events/report/hypothesis are fetched
+// anew, so a refresh can never resurrect cached conclusions from another run.
+try{
+  const saved=JSON.parse(sessionStorage.getItem(SESSION_KEY)||'null');
+  if(saved?.mode==='live'){
+    switchMode('live');
+    if(typeof saved.runId==='string'&&RUN_ID.test(saved.runId))attachRun(saved.runId,typeof saved.topic==='string'?saved.topic.slice(0,500):'');
+  }
+}catch{}
+// @local-live:end
 
-    update();
-})();
 </script>
-
 <script id="agent-bubble-containment">
-// Bubble-only containment. Local Researcher behavior is preserved; the public
-// profile also contains the other radial bubbles at narrow screen widths.
+// Bubble-only containment is shared by Demo and Live, including narrow screens.
 (function () {
     const arena = document.querySelector('.arena');
-    const publicDemo = document.documentElement.classList.contains('public-showcase');
-    const agents = [...arena.querySelectorAll(publicDemo ? '.agent:not(.pi)' : '.agent.researcher')];
+    const agents = [...arena.querySelectorAll('.agent:not(.pi)')];
     let pending = false;
     function fitBubbles() {
         pending = false;
@@ -465,7 +557,7 @@ syncResearchQuestion();
             let left = Math.max(bounds.left + safe,Math.min(bubble.left,bounds.right-safe-bubble.width));
             let bottom = bubble.bottom;
             const card = arena.querySelector('.center').getBoundingClientRect();
-            if (publicDemo && bottom>card.top-gap && bottom-bubble.height<card.bottom+gap) {
+            if (bottom>card.top-gap && bottom-bubble.height<card.bottom+gap) {
                 // Prefer the open side band before moving a lower bubble up.
                 if (agent.getBoundingClientRect().left<bounds.left+bounds.width/2 && card.left-gap-(bounds.left+safe)>=bubble.width) left=Math.min(left,card.left-gap-bubble.width);
                 else if (bounds.right-safe-(card.right+gap)>=bubble.width) left=Math.max(left,card.right+gap);
