@@ -3,7 +3,7 @@
  const wait=()=>new Promise(resolve=>setTimeout(resolve,100));
  const assert=(condition,label)=>{if(!condition)throw Error(label);checks.push(label)};
  function inspect(label){
-   layoutPI();refreshBeam();
+   layoutArena();refreshBeam();
    const pi=document.querySelector('.agent.pi'),talk=pi.querySelector('.talk');
    const arena=document.querySelector('.arena').getBoundingClientRect();
    const question=document.querySelector('.center').getBoundingClientRect();

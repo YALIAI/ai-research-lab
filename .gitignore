@@ -35,3 +35,9 @@ backend/upgrade_v2.py
 *_backup_*/
 *.zip
 *.tsbuildinfo
+
+# Local browser screenshots and geometry reports
+test-artifacts/
+
+# Static GitHub Pages build
+dist-pages/

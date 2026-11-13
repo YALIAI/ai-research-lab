@@ -1,5 +1,5 @@
 <!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>AI Research Lab | Executive V4.1</title><style>
-:root{color-scheme:dark;--bg:#070b17;--panel:#10182b;--line:#293553;--muted:#91a2c3;--cyan:#48e4ff;--violet:#b39bff;--green:#68f5bd;--amber:#ffd178;--pink:#ff88b2}*{box-sizing:border-box}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:radial-gradient(ellipse at 48% 18%,#182b55 0,#090e20 42%,#050812 85%);color:#eaf3ff;min-height:100vh}body:before{content:"";position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(#9fc5ff07 1px,transparent 1px),linear-gradient(90deg,#9fc5ff07 1px,transparent 1px);background-size:42px 42px;mask-image:linear-gradient(#0009,transparent 90%)}button{font:inherit;cursor:pointer}header{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:20px clamp(16px,4vw,58px);border-bottom:1px solid #8ba9ed22;background:#090f20bb;backdrop-filter:blur(12px)}.brand{display:flex;align-items:center;gap:12px;font-weight:850;letter-spacing:.3px}.brand-mark{height:38px;width:38px;border:1px solid #58e4ff88;border-radius:12px;display:grid;place-items:center;color:var(--cyan);box-shadow:0 0 22px #27cfff2b;font-size:22px}.tiny{font-size:11px;color:var(--muted);letter-spacing:1.8px;text-transform:uppercase}.live{font-size:12px;color:#8ff8c5;background:#122b2a;border:1px solid #3ca98c55;padding:8px 13px;border-radius:100px}.live:before{content:"";display:inline-block;width:7px;height:7px;background:#68f5bd;border-radius:50%;margin-right:8px;box-shadow:0 0 12px #68f5bd;animation:pulse 1.6s infinite}main{max-width:1420px;margin:auto;padding:24px clamp(16px,4vw,58px) 40px}.eyebrow{color:var(--cyan);font-size:12px;letter-spacing:2px;font-weight:750}.top h1{font-size:clamp(27px,3vw,43px);margin:9px 0 8px;line-height:1.12;letter-spacing:-1.5px}.top p{color:var(--muted);margin:0 0 18px;font-size:14px}.top strong{color:#e6eeff}.workspace{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(300px,.85fr);gap:18px}.arena,.side,.foot{background:#0d1427c9;border:1px solid #49618b50;border-radius:19px;box-shadow:0 12px 50px #0005}.arena{position:relative;min-height:610px;overflow:hidden}.arena:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 48%,#21427344,transparent 55%);pointer-events:none}.arena-label{position:absolute;top:19px;left:23px;color:#9cb3d7;font-size:11px;font-weight:800;letter-spacing:1.5px}.orbit{position:absolute;left:50%;top:48%;transform:translate(-50%,-50%);width:480px;height:480px;border:1px dashed #5b83c33a;border-radius:50%}.orbit.two{width:305px;height:305px;border-style:solid;border-color:#4872a62a}.center{position:absolute;left:50%;top:48%;transform:translate(-50%,-50%);width:235px;min-height:164px;padding:23px 20px;border-radius:24px;border:1px solid #5bceff88;background:linear-gradient(145deg,#1b3358,#0b1934);text-align:center;box-shadow:0 0 0 8px #4aa7ff08,0 0 70px #25baff22;z-index:2}.center .question{font-size:12px;color:#89eaff;letter-spacing:1.6px;font-weight:800}.center h2{font-size:17px;line-height:1.4;margin:12px 0 8px}.center small{color:#a1b6d9;font-size:11px}.agent{position:absolute;z-index:3;width:132px;text-align:center;transform:translate(-50%,-50%);transition:filter .4s}.portrait{position:relative;width:82px;height:82px;border-radius:23px;display:grid;place-items:center;margin:auto auto 9px;background:linear-gradient(150deg,#24385a,#0d1930);border:1px solid var(--accent);box-shadow:0 0 20px color-mix(in srgb,var(--accent) 18%,transparent);font-size:38px;transition:transform .35s,box-shadow .35s}.agent.active .portrait{transform:translateY(-8px) scale(1.1);box-shadow:0 0 15px var(--accent),0 0 48px color-mix(in srgb,var(--accent) 35%,transparent);animation:float 1.6s ease-in-out infinite}.agent.active .portrait:after{content:"";position:absolute;inset:-8px;border:1px solid var(--accent);border-radius:30px;animation:ring 1.5s infinite}.agent .name{font-size:13px;font-weight:850}.agent .role{font-size:10px;color:#9baece;margin-top:3px}.agent .talk{display:none;position:absolute;bottom:calc(100% + 15px);left:50%;transform:translateX(-50%);width:210px;background:#172744;border:1px solid var(--accent);border-radius:13px;padding:11px;font-size:11px;line-height:1.45;text-align:left;box-shadow:0 12px 24px #0008}.agent.active .talk{display:block;animation:appear .3s both}.agent .talk:after{content:"";position:absolute;top:100%;left:50%;border:7px solid transparent;border-top-color:var(--accent)}.agent.pi{left:50%;top:16%;--accent:var(--violet)}.agent.researcher{left:19%;top:38%;--accent:var(--cyan)}.agent.analyst{left:24%;top:78%;--accent:var(--green)}.agent.critic{left:76%;top:78%;--accent:var(--pink)}.agent.writer{left:81%;top:38%;--accent:var(--amber)}.linklayer{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}.beam{stroke:#54c8ff;stroke-width:2;stroke-dasharray:6 9;opacity:0;filter:drop-shadow(0 0 6px #5feaff)}.beam.show{opacity:1;animation:dash 1s linear infinite}.arena-footer{position:absolute;bottom:15px;left:18px;right:18px;display:flex;justify-content:space-between;align-items:center;gap:12px;z-index:4}.step{font-size:12px;color:#a7bde0;background:#0b1425dd;padding:9px 12px;border:1px solid #43597b55;border-radius:10px}.controls{display:flex;gap:7px}.btn{border:1px solid #4c6b94;background:#172944;color:#dceeff;border-radius:10px;padding:10px 14px;font-size:12px;font-weight:800}.btn.primary{background:linear-gradient(120deg,#2c9cd2,#5553ce);border-color:#65c6ff;color:white}.btn:hover{filter:brightness(1.18)}.side{display:flex;flex-direction:column;overflow:hidden;min-height:610px}.side-head{padding:20px 20px 14px;border-bottom:1px solid #38507855;display:flex;justify-content:space-between;align-items:center}.side-head h3{margin:0;font-size:15px}.status{font-size:11px;color:#79eac1}.feed{padding:14px;overflow:auto;flex:1;max-height:455px;scrollbar-color:#49668c transparent}.msg{padding:13px 14px;margin-bottom:10px;background:#131f35;border:1px solid #33496b77;border-left:3px solid var(--accent);border-radius:11px;animation:appear .35s both}.msg .who{display:flex;justify-content:space-between;font-size:11px;font-weight:850;color:var(--accent);margin-bottom:7px}.msg p{font-size:12px;line-height:1.65;color:#d3e0f5;margin:0}.msg time{font-size:10px;color:#7891b6;font-weight:500}.conclusion{padding:17px 19px;border-top:1px solid #3c547555;background:linear-gradient(130deg,#123c3c77,#142345)}.conclusion b{color:#8af3c8;font-size:12px;letter-spacing:.6px}.conclusion p{margin:7px 0 0;font-size:12px;line-height:1.55;color:#c5d7ec}.foot{margin-top:18px;padding:15px 20px;display:flex;justify-content:space-between;gap:15px;align-items:center;color:#9ab0d0;font-size:12px}.legend{display:flex;gap:14px;flex-wrap:wrap}.legend span{display:inline-flex;align-items:center;gap:6px}.dot{width:7px;height:7px;border-radius:50%;background:var(--c)}@keyframes float{50%{transform:translateY(-13px) scale(1.1)}}@keyframes ring{to{transform:scale(1.18);opacity:0}}@keyframes dash{to{stroke-dashoffset:-30}}@keyframes appear{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}@keyframes pulse{50%{opacity:.4}}@media(max-width:950px){.workspace{grid-template-columns:1fr}.arena{min-height:570px}.side{min-height:430px}.feed{max-height:320px}}@media(max-width:600px){header{padding:14px}.brand{font-size:13px}.arena{min-height:610px}.orbit{width:320px;height:320px}.orbit.two{width:230px;height:230px}.center{width:165px;min-height:130px;padding:14px 12px}.center h2{font-size:12px}.center .question{font-size:10px}.agent{width:90px}.portrait{width:59px;height:59px;font-size:27px;border-radius:17px}.agent.pi{top:15%}.agent.researcher{left:15%;top:39%}.agent.writer{left:85%;top:39%}.agent.analyst{left:21%;top:76%}.agent.critic{left:79%;top:76%}.agent .talk{width:145px;font-size:10px}.agent.researcher .talk,.agent.analyst .talk{left:25%;}.agent.writer .talk,.agent.critic .talk{left:70%}.arena-footer{flex-direction:column;align-items:stretch}.controls{justify-content:flex-end}.foot{align-items:flex-start;flex-direction:column}}
+:root{color-scheme:dark;--bg:#070b17;--panel:#10182b;--line:#293553;--muted:#91a2c3;--cyan:#48e4ff;--violet:#b39bff;--green:#68f5bd;--amber:#ffd178;--pink:#ff88b2}*{box-sizing:border-box}body{margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:radial-gradient(ellipse at 48% 18%,#182b55 0,#090e20 42%,#050812 85%);color:#eaf3ff;min-height:100vh}body:before{content:"";position:fixed;inset:0;pointer-events:none;background-image:linear-gradient(#9fc5ff07 1px,transparent 1px),linear-gradient(90deg,#9fc5ff07 1px,transparent 1px);background-size:42px 42px;mask-image:linear-gradient(#0009,transparent 90%)}button{font:inherit;cursor:pointer}header{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:20px clamp(16px,4vw,58px);border-bottom:1px solid #8ba9ed22;background:#090f20bb;backdrop-filter:blur(12px)}.brand{display:flex;align-items:center;gap:12px;font-weight:850;letter-spacing:.3px}.brand-mark{height:38px;width:38px;border:1px solid #58e4ff88;border-radius:12px;display:grid;place-items:center;color:var(--cyan);box-shadow:0 0 22px #27cfff2b;font-size:22px}.tiny{font-size:11px;color:var(--muted);letter-spacing:1.8px;text-transform:uppercase}.live{font-size:12px;color:#8ff8c5;background:#122b2a;border:1px solid #3ca98c55;padding:8px 13px;border-radius:100px}.live:before{content:"";display:inline-block;width:7px;height:7px;background:#68f5bd;border-radius:50%;margin-right:8px;box-shadow:0 0 12px #68f5bd;animation:pulse 1.6s infinite}main{max-width:1420px;margin:auto;padding:24px clamp(16px,4vw,58px) 40px}.eyebrow{color:var(--cyan);font-size:12px;letter-spacing:2px;font-weight:750}.top h1{font-size:clamp(27px,3vw,43px);margin:9px 0 8px;line-height:1.12;letter-spacing:-1.5px}.top p{color:var(--muted);margin:0 0 18px;font-size:14px}.top strong{color:#e6eeff}.workspace{display:grid;grid-template-columns:minmax(0,1.65fr) minmax(300px,.85fr);gap:18px}.arena,.side,.foot{background:#0d1427c9;border:1px solid #49618b50;border-radius:19px;box-shadow:0 12px 50px #0005}.arena{position:relative;min-height:var(--arena-min-height,610px);overflow:hidden;--pi-bubble-height:clamp(90px,10vw,112px);--pi-animation-clearance:40px;--pi-headroom:48px;--arena-gap:24px}.arena:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 48%,#21427344,transparent 55%);pointer-events:none}.arena-label{position:absolute;top:19px;left:23px;color:#9cb3d7;font-size:11px;font-weight:800;letter-spacing:1.5px}.orbit{position:absolute;left:50%;top:var(--question-y,50%);transform:translate(-50%,-50%);width:480px;height:480px;border:1px dashed #5b83c33a;border-radius:50%}.orbit.two{width:305px;height:305px;border-style:solid;border-color:#4872a62a}.center{position:absolute;left:50%;top:var(--question-y,50%);transform:translate(-50%,-50%);width:235px;min-height:164px;padding:23px 20px;border-radius:24px;border:1px solid #5bceff88;background:linear-gradient(145deg,#1b3358,#0b1934);text-align:center;box-shadow:0 0 0 8px #4aa7ff08,0 0 70px #25baff22;z-index:2;max-height:240px;overflow:auto;overflow-wrap:anywhere}.center .question{font-size:12px;color:#89eaff;letter-spacing:1.6px;font-weight:800}.center h2{font-size:17px;line-height:1.4;margin:12px 0 8px}.center small{color:#a1b6d9;font-size:11px}.agent{position:absolute;z-index:3;width:132px;text-align:center;transform:translate(-50%,-50%);transition:filter .4s}.portrait{position:relative;width:82px;height:82px;border-radius:23px;display:grid;place-items:center;margin:auto auto 9px;background:linear-gradient(150deg,#24385a,#0d1930);border:1px solid var(--accent);box-shadow:0 0 20px color-mix(in srgb,var(--accent) 18%,transparent);font-size:38px;transition:transform .35s,box-shadow .35s}.agent.active .portrait{transform:translateY(-8px) scale(1.1);box-shadow:0 0 15px var(--accent),0 0 48px color-mix(in srgb,var(--accent) 35%,transparent);animation:float 1.6s ease-in-out infinite}.agent.active .portrait:after{content:"";position:absolute;inset:-8px;border:1px solid var(--accent);border-radius:30px;animation:ring 1.5s infinite}.agent .name{font-size:13px;font-weight:850}.agent .role{font-size:10px;color:#9baece;margin-top:3px}.agent .talk{display:none;position:absolute;bottom:calc(100% + 15px);left:50%;transform:translateX(-50%);width:210px;background:#172744;border:1px solid var(--accent);border-radius:13px;padding:11px;font-size:11px;line-height:1.45;text-align:left;box-shadow:0 12px 24px #0008}.agent.active .talk{display:block;animation:appear .3s both}.agent .talk:after{content:"";position:absolute;top:100%;left:50%;border:7px solid transparent;border-top-color:var(--accent)}.agent.pi{left:50%;top:var(--pi-y,0px);--accent:var(--violet)}.agent.researcher{left:19%;top:38%;--accent:var(--cyan)}.agent.analyst{left:24%;top:78%;--accent:var(--green)}.agent.critic{left:76%;top:78%;--accent:var(--pink)}.agent.writer{left:81%;top:38%;--accent:var(--amber)}.linklayer{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}.beam{stroke:#54c8ff;stroke-width:2;stroke-dasharray:6 9;opacity:0;filter:drop-shadow(0 0 6px #5feaff)}.beam.show{opacity:1;animation:dash 1s linear infinite}.arena-footer{position:absolute;bottom:15px;left:18px;right:18px;display:flex;justify-content:space-between;align-items:center;gap:12px;z-index:4}.step{font-size:12px;color:#a7bde0;background:#0b1425dd;padding:9px 12px;border:1px solid #43597b55;border-radius:10px}.controls{display:flex;gap:7px}.btn{border:1px solid #4c6b94;background:#172944;color:#dceeff;border-radius:10px;padding:10px 14px;font-size:12px;font-weight:800}.btn.primary{background:linear-gradient(120deg,#2c9cd2,#5553ce);border-color:#65c6ff;color:white}.btn:hover{filter:brightness(1.18)}.side{display:flex;flex-direction:column;overflow:hidden;min-height:610px}.side-head{padding:20px 20px 14px;border-bottom:1px solid #38507855;display:flex;justify-content:space-between;align-items:center}.side-head h3{margin:0;font-size:15px}.status{font-size:11px;color:#79eac1}.feed{padding:14px;overflow:auto;flex:1;max-height:455px;scrollbar-color:#49668c transparent}.msg{padding:13px 14px;margin-bottom:10px;background:#131f35;border:1px solid #33496b77;border-left:3px solid var(--accent);border-radius:11px;animation:appear .35s both}.msg .who{display:flex;justify-content:space-between;font-size:11px;font-weight:850;color:var(--accent);margin-bottom:7px}.msg p{font-size:12px;line-height:1.65;color:#d3e0f5;margin:0}.msg time{font-size:10px;color:#7891b6;font-weight:500}.conclusion{padding:17px 19px;border-top:1px solid #3c547555;background:linear-gradient(130deg,#123c3c77,#142345)}.conclusion b{color:#8af3c8;font-size:12px;letter-spacing:.6px}.conclusion p{margin:7px 0 0;font-size:12px;line-height:1.55;color:#c5d7ec}.foot{margin-top:18px;padding:15px 20px;display:flex;justify-content:space-between;gap:15px;align-items:center;color:#9ab0d0;font-size:12px}.legend{display:flex;gap:14px;flex-wrap:wrap}.legend span{display:inline-flex;align-items:center;gap:6px}.dot{width:7px;height:7px;border-radius:50%;background:var(--c)}@keyframes float{50%{transform:translateY(-13px) scale(1.1)}}@keyframes ring{to{transform:scale(1.18);opacity:0}}@keyframes dash{to{stroke-dashoffset:-30}}@keyframes appear{from{opacity:0;transform:translateY(9px)}to{opacity:1;transform:translateY(0)}}@keyframes pulse{50%{opacity:.4}}@media(max-width:950px){.workspace{grid-template-columns:1fr}.side{min-height:430px}.feed{max-height:320px}}@media(max-width:600px){header{padding:14px}.brand{font-size:13px}.orbit{width:320px;height:320px}.orbit.two{width:230px;height:230px}.center{width:165px;min-height:130px;padding:14px 12px}.center h2{font-size:12px}.center .question{font-size:10px}.agent{width:90px}.portrait{width:59px;height:59px;font-size:27px;border-radius:17px}.agent.researcher{left:15%;top:39%}.agent.writer{left:85%;top:39%}.agent.analyst{left:21%;top:76%}.agent.critic{left:79%;top:76%}.agent .talk{width:145px;font-size:10px}.agent.analyst .talk{left:25%;}.agent.writer .talk,.agent.critic .talk{left:70%}.arena-footer{flex-direction:column;align-items:stretch}.controls{justify-content:flex-end}.foot{align-items:flex-start;flex-direction:column}}
 
 /* Executive demo additions */
 nav.demo-nav{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 18px;position:sticky;top:0;z-index:10;padding:9px 0;background:#080e1de8;backdrop-filter:blur(14px)}
@@ -20,7 +20,7 @@ nav.demo-nav button.selected{background:#21466a;color:#e5faff;border-color:#50d9
 .tech-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:22px 0}.tech-list>div{padding:19px;border:1px solid #365170;background:#111d32;border-radius:14px}.tech-list b{display:block;margin-bottom:8px;color:#dff6ff}.tech-list span{color:#a7bdd9;font-size:13px;line-height:1.6}
 .demo-footer{padding:16px 0;color:#8399ba;font-size:11px;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
 @media(max-width:760px){.presentation-grid{grid-template-columns:1fr}.tech-list{grid-template-columns:1fr}nav.demo-nav{position:static}}
-@media print{nav.demo-nav,.controls,.demo-cta{display:none!important}.demo-panel{display:block!important;break-before:page}.arena{min-height:600px}body{background:#071020!important}}
+@media print{nav.demo-nav,.controls,.demo-cta{display:none!important}.demo-panel{display:block!important;break-before:page}body{background:#071020!important}}
 
 /* V4.1 additions — original Executive Demo layout preserved */
 .live-console,.live-report{border:1px solid #35567b;border-radius:17px;background:linear-gradient(125deg,#10223c,#10192f);padding:19px 21px;margin:18px 0 22px;box-shadow:0 12px 40px #02071330}
@@ -34,6 +34,9 @@ nav.demo-nav button.selected{background:#21466a;color:#e5faff;border-color:#50d9
 #research-topic{width:100%;min-height:68px;resize:vertical;background:#0a1428;color:#e8f2ff;border:1px solid #476187;border-radius:11px;padding:13px;font:inherit;line-height:1.5}
 .live-actions{display:flex;gap:9px;flex-wrap:wrap;align-items:center;margin:12px 0}
 .live-actions input{min-width:190px;flex:1;background:#0a1428;color:#e8f2ff;border:1px solid #476187;border-radius:9px;padding:11px;font:inherit}
+.reconnect-tools{margin:12px 0;color:#b2c8e7;font-size:12px}
+.reconnect-tools summary{cursor:pointer;width:fit-content;padding:8px 0}
+.reconnect-tools:not([open])>.live-actions{display:none}
 .live-actions button:disabled{opacity:.45;cursor:not-allowed}
 .run-summary{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;border-top:1px solid #324666;padding-top:12px;font-size:12px;color:#b8d0ec}
 .live-note{color:#829bbd;font-size:11px;line-height:1.7;margin-top:12px}
@@ -120,65 +123,152 @@ function updateResearchBeam(agentElement) {
 
 
 <style id="arena-layout">
-/* Reserve the complete PI stack above the question, including float clearance.
-   Measured intrinsic heights keep the spacing valid when text or fonts change. */
-.arena {
-    --pi-height: 121px;
-    --question-height: 190px;
-    --pi-bubble-height: clamp(90px, 10vw, 112px);
-    --pi-question-gap: 24px;
-    --pi-animation-clearance: 40px;
-    --pi-headroom: 48px;
-    min-height: max(610px, calc((var(--pi-headroom) + var(--pi-bubble-height) + var(--pi-animation-clearance) + var(--pi-height) + var(--pi-question-gap) + var(--question-height) / 2) / .48 + 2px));
-}
-.arena .agent.pi {
-    top: calc(48% - var(--question-height) / 2 - var(--pi-question-gap) - var(--pi-height) / 2);
-}
 .agent.active .talk{animation:bubble-appear .3s both;bottom:calc(100% + 30px);overflow-wrap:anywhere;max-height:125px;overflow:auto}
 .arena .agent.pi .talk {
     bottom: calc(100% + var(--pi-animation-clearance));
     max-height: var(--pi-bubble-height);
     max-width: calc(100vw - 64px);
 }
-.center {max-height:240px;overflow:auto;overflow-wrap:anywhere}
+/* Only these two bubbles: natural text height and no scrollable arrow tail. */
+.agent:is(.pi,.researcher) .talk {
+    height: auto;
+    min-height: 0;
+    padding-block: 11px;
+    white-space: pre-wrap;
+}
+.agent:is(.pi,.researcher) .talk::-webkit-scrollbar {width: 6px}
+.agent:is(.pi,.researcher) .talk::-webkit-scrollbar-thumb {background:var(--accent);border-radius:999px}
+.agent:is(.pi,.researcher) .talk::-webkit-scrollbar-track {background:transparent}
+.agent:is(.pi,.researcher) .talk::-webkit-scrollbar-button {display:none;width:0;height:0}
+.agent:is(.pi,.researcher) .talk::after {
+    content: none;
+    display: none;
+}
+.agent.researcher .talk,
+.public-showcase .agent:is(.analyst,.critic,.writer) .talk {
+    margin-left: var(--bubble-shift-x, 0px);
+    margin-bottom: var(--bubble-shift-up, 0px);
+    max-height: min(125px, var(--bubble-available-height, 125px));
+}
 @keyframes bubble-appear{from{opacity:0}to{opacity:1}}
 </style>
 
-</head><body><header><div class="brand"><div class="brand-mark">✦</div><div>AI RESEARCH LAB<div class="tiny">MULTI-AGENT RESEARCH · EXECUTIVE V4.1</div></div></div><div class="live" id="live">EXECUTIVE V4.1 · DEMO READY</div></header><main><section class="top"><div class="eyebrow">AI RESEARCH LAB  /  PROOF OF CONCEPT</div><h1>From a research question to a challenged, evidence-informed report.</h1><p>A local-first multi-agent workflow that retrieves literature, analyzes claims, challenges weak evidence, and drafts a synthesis. <strong>The debate room supports both a scripted presentation and live research from the backend.</strong></p></section><nav class="demo-nav" aria-label="Presentation sections"><button data-tab="overview">01 · Overview</button><button data-tab="debate" class="selected">02 · Debate Room</button><button data-tab="architecture">03 · Architecture</button><button data-tab="results">04 · Results & Roadmap</button></nav><section class="demo-panel" id="panel-overview"><div class="eyebrow">THE IDEA</div><h2 class="section-heading">Research with built-in critical review</h2><p class="section-lead">Instead of asking a single model for an answer, AI Research Lab coordinates specialized agents across an evidence-gathering and review workflow. The aim is to make reasoning more traceable, expose uncertainty, and produce a structured research report.</p><div class="presentation-grid"><div class="presentation-card"><div class="number">05</div><h3>Specialized AI roles</h3><p>PI, Researcher, Analyst, Critic, and Writer collaborate through an orchestrated workflow.</p></div><div class="presentation-card"><div class="number">12</div><h3>Unique papers in one V2 test</h3><p>A completed MRI research test retrieved five papers initially and seven additional papers after a critique-driven search.</p></div><div class="presentation-card"><div class="number">03</div><h3>Bounded review cycles</h3><p>The pipeline supports iterative critique, with a configured maximum of three rounds to control runtime.</p></div></div><div class="result-box"><h3>Today's showcase: ADAS research</h3><p><strong>Will End-to-End AI Replace Traditional Modular ADAS Architectures by 2030?</strong><br>Watch the agents frame the question, surface arguments, challenge safety assumptions, and synthesize a cautious hypothesis.</p></div><button class="demo-cta" data-go="debate">▶ Open the debate room</button><p class="fineprint">Choose Demo Mode for a scripted presentation or Live Research to connect to your research backend.</p></section><section class="demo-panel visible" id="panel-debate"><div class="eyebrow">INTERACTIVE VISUALIZATION</div><h2 class="section-heading">Five agents. One evolving argument.</h2><p class="section-lead">Use Demo Mode for the original animated presentation, or Live Research to display actual LangGraph agent events.</p><div class="live-console" id="live-console">
+<style id="public-showcase-layout">
+/* Prioritize the existing Arena on the public landing view. */
+.public-showcase .top,
+.public-showcase #panel-debate > .eyebrow,
+.public-showcase #panel-debate > .section-heading,
+.public-showcase #panel-debate > .section-lead {display:none}
+.public-showcase main {padding-top:12px}
+.public-showcase .showcase-notice {padding:10px 16px;margin:0 0 16px}
+.public-showcase .showcase-notice .mode-row {margin:0;align-items:center}
+.public-showcase .showcase-notice p {margin:8px 0 0;color:var(--muted);font-size:12px;line-height:1.5}
+.public-showcase #mode-live {opacity:.55;cursor:not-allowed}
+</style>
+</head><body><header><div class="brand"><div class="brand-mark">✦</div><div>AI RESEARCH LAB<div class="tiny">MULTI-AGENT RESEARCH · EXECUTIVE V4.1</div></div></div><div class="live" id="live">EXECUTIVE V4.1 · DEMO READY</div></header><main><section class="top"><div class="eyebrow">AI RESEARCH LAB  /  PROOF OF CONCEPT</div><h1>From a research question to a challenged, evidence-informed report.</h1><p>A local-first multi-agent workflow that retrieves literature, analyzes claims, challenges weak evidence, and drafts a synthesis. <strong>The debate room supports both a scripted presentation and live research from the backend.</strong></p></section><nav class="demo-nav" aria-label="Presentation sections"><button data-tab="overview">01 · Overview</button><button data-tab="debate" class="selected">02 · Debate Room</button><button data-tab="architecture">03 · Architecture</button><button data-tab="results">04 · Results & Roadmap</button></nav><section class="demo-panel" id="panel-overview"><div class="eyebrow">THE IDEA</div><h2 class="section-heading">Research with built-in critical review</h2><p class="section-lead">Instead of asking a single model for an answer, AI Research Lab coordinates specialized agents across an evidence-gathering and review workflow. The aim is to make reasoning more traceable, expose uncertainty, and produce a structured research report.</p><div class="presentation-grid"><div class="presentation-card"><div class="number">05</div><h3>Specialized AI roles</h3><p>PI, Researcher, Analyst, Critic, and Writer collaborate through an orchestrated workflow.</p></div><div class="presentation-card"><div class="number">12</div><h3>Unique papers in one V2 test</h3><p>A completed MRI research test retrieved five papers initially and seven additional papers after a critique-driven search.</p></div><div class="presentation-card"><div class="number">03</div><h3>Bounded review cycles</h3><p>The pipeline supports iterative critique, with a configured maximum of three rounds to control runtime.</p></div></div><div class="result-box"><h3>Today's showcase: ADAS research</h3><p><strong>Will End-to-End AI Replace Traditional Modular ADAS Architectures by 2030?</strong><br>Watch the agents frame the question, surface arguments, challenge safety assumptions, and synthesize a cautious hypothesis.</p></div><button class="demo-cta" data-go="debate">▶ Open the debate room</button><p class="fineprint">Choose Demo Mode for a scripted presentation or Live Research to connect to your research backend.</p></section><section class="demo-panel visible" id="panel-debate"><div class="eyebrow">INTERACTIVE VISUALIZATION</div><h2 class="section-heading">Five agents. One evolving argument.</h2><p class="section-lead">Use Demo Mode for the original animated presentation, or Live Research to display actual LangGraph agent events.</p><!-- local-live-console:start --><div class="live-console" id="live-console">
   <div class="live-console-head"><strong>RESEARCH CONTROL</strong><span id="connection-state" class="conn-label">Demo mode · offline ready</span></div>
   <div class="mode-row"><button id="mode-demo" class="mode-choice active" type="button">▶ Demo Mode</button><button id="mode-live" class="mode-choice" type="button">◉ Live Research</button></div>
   <div id="live-controls" hidden>
     <label for="research-topic">RESEARCH QUESTION</label>
     <textarea id="research-topic" rows="2" maxlength="500">Will End-to-End AI Replace Traditional Modular ADAS Architectures by 2030?</textarea>
-    <div class="live-actions"><button id="start-live" type="button" class="btn primary">Start Research</button><input id="run-id" aria-label="Existing run ID" placeholder="Run ID · reconnect" spellcheck="false"><button id="reconnect-live" type="button" class="btn">Reconnect</button></div>
+    <div class="live-actions"><button id="start-live" type="button" class="btn primary">Start Research</button></div>
+    <details class="reconnect-tools" id="reconnect-tools">
+      <summary>Advanced / Reconnect</summary>
+      <div class="live-actions"><input id="run-id" aria-label="Existing run ID" placeholder="Run ID · reconnect" spellcheck="false"><button id="reconnect-live" type="button" class="btn">Reconnect</button></div>
+    </details>
     <p id="live-error" role="alert" hidden></p>
     <div class="run-summary"><span id="run-state">No live run</span><span id="run-round">Waiting for agent events</span></div>
     <div class="live-note">Requires the Vite /api proxy and FastAPI backend. Starting a run executes the real research workflow; the live display is not a scripted replay.</div>
   </div>
-</div><div class="workspace"><section class="arena"><div class="arena-label">◈ DEBATE ARENA · INTERACTIVE DEMO</div><div class="orbit"></div><div class="orbit two"></div><svg class="linklayer" viewBox="0 0 1000 700" preserveAspectRatio="none" aria-hidden="true"><line id="beam" class="beam" x1="500" y1="336" x2="500" y2="112"/></svg><div class="center"><div class="question">RESEARCH QUESTION</div><h2 id="arena-research-question">Will End-to-End AI Replace Modular ADAS by 2030?</h2><small>Evidence · Reasoning · Debate</small></div><div class="agent pi" data-agent="PI"><div class="talk"></div><div class="portrait">🧑‍🚀</div><div class="name">PI</div><div class="role">Research Director</div></div><div class="agent researcher" data-agent="Researcher"><div class="talk"></div><div class="portrait">👩‍🔬</div><div class="name">Researcher</div><div class="role">Evidence Hunter</div></div><div class="agent analyst" data-agent="Analyst"><div class="talk"></div><div class="portrait">🧑‍💻</div><div class="name">Analyst</div><div class="role">Pro / Analysis</div></div><div class="agent critic" data-agent="Critic"><div class="talk"></div><div class="portrait">👩‍⚖️</div><div class="name">Critic</div><div class="role">Con / Challenger</div></div><div class="agent writer" data-agent="Writer"><div class="talk"></div><div class="portrait">🧑‍🎨</div><div class="name">Writer</div><div class="role">Synthesis</div></div><div class="arena-footer"><div class="step" id="step">Ready to begin · 8 debate turns</div><div class="controls"><button class="btn" id="restart">↺ Replay</button><button class="btn primary" id="toggle">Ⅱ Pause</button></div></div></section><aside class="side"><div class="side-head"><h3>◉ Live Debate Transcript</h3><span class="status" id="status">● RUNNING</span></div><div class="feed" id="feed" aria-live="polite"></div><div class="conclusion"><b>◇ EMERGING HYPOTHESIS</b><p>Hybrid architectures may be more plausible than full replacement: learned driving intelligence combined with independent safety supervision and deterministic control.</p></div></aside></div><section class="foot"><div class="legend"><span><i class="dot" style="--c:var(--violet)"></i>PI</span><span><i class="dot" style="--c:var(--cyan)"></i>Researcher</span><span><i class="dot" style="--c:var(--green)"></i>Analyst</span><span><i class="dot" style="--c:var(--pink)"></i>Critic</span><span><i class="dot" style="--c:var(--amber)"></i>Writer</span></div><div>Demo: scripted dialogue · Live: actual backend events</div></section></section><section class="demo-panel" id="panel-architecture"><div class="eyebrow">SYSTEM DESIGN</div><h2 class="section-heading">Local-first, event-driven research orchestration</h2><p class="section-lead">The working V2 prototype uses a FastAPI service to create research runs, LangGraph to coordinate steps, OpenAlex to retrieve research metadata, a locally served LLM for reasoning, and SQLite to persist runs and events. The V3 frontend visualizes events through server-sent events (SSE).</p><div class="workflow"><span class="node">Research topic</span><span class="arr">→</span><span class="node">PI</span><span class="arr">→</span><span class="node">Researcher</span><span class="arr">→</span><span class="node">Analyst</span><span class="arr">→</span><span class="node">Critic</span><span class="arr">↺</span><span class="node">RefineSearch / Review</span><span class="arr">→</span><span class="node">Writer</span></div><div class="tech-list"><div><b>Orchestration · LangGraph</b><span>Agent state, conditional transitions, and bounded critique loops.</span></div><div><b>Inference · llama.cpp</b><span>Local OpenAI-compatible API with Holo-3.1-35B-A3B for the existing prototype.</span></div><div><b>Research retrieval · OpenAlex</b><span>Topic-driven paper search and critique-triggered additional retrieval.</span></div><div><b>Backend · FastAPI + SQLite</b><span>Run creation, persisted events, report storage, and SSE streaming.</span></div><div><b>Frontend · Vite</b><span>Visualizes agent events and progress in a debate-room metaphor.</span></div><div><b>Observability · Planned</b><span>MLflow integration for comparing runs, latency, model configurations, and quality metrics.</span></div></div><div class="result-box"><h3>What makes the system interesting?</h3><p>Critique is not merely an output label: in V2 it can trigger additional evidence retrieval before the workflow returns to analysis. The maximum loop count prevents unbounded execution.</p></div><p class="fineprint">Architecture describes the developed V2 prototype; Live Research connects to its API through the same-origin /api proxy.</p></section><section class="demo-panel" id="panel-results"><div class="eyebrow">EVIDENCE & NEXT STEPS</div><h2 class="section-heading">What we have proven — and what remains open</h2><div class="presentation-grid"><div class="presentation-card"><div class="number">✓</div><h3>Working V2 execution</h3><p>A completed test generated a research report and executed critique-triggered retrieval with twelve unique papers.</p></div><div class="presentation-card"><div class="number">!</div><h3>Grounding limitations</h3><p>Retrieved paper relevance, source attribution, and whether revised analysis actually incorporates new evidence still need stronger checks.</p></div><div class="presentation-card"><div class="number">→</div><h3>Next engineering milestones</h3><p>Evidence quality control, reliable live event mapping, experiment tracking with MLflow, and reproducible evaluation.</p></div></div><div class="result-box"><h3>Illustrative ADAS research hypothesis</h3><p>Complete replacement of modular ADAS by end-to-end AI by 2030 is uncertain. A hybrid architecture — learned driving intelligence paired with independent safety supervision and deterministic control — may be more plausible. <strong>This is a provisional synthesis, not a validated prediction.</strong></p></div><p class="section-lead"><strong>Manager-facing takeaway:</strong> This project demonstrates practical work across local LLM serving, graph-based agent orchestration, external research retrieval, backend APIs, persistent execution state, and an interactive frontend. The next phase is to quantify whether critique improves evidence quality and report reliability.</p><button class="demo-cta" data-go="debate">↺ Return to animated demo</button></section><section class="live-report" id="live-report" hidden><div class="live-console-head"><strong>LIVE RESEARCH REPORT</strong><span id="report-state">Waiting for a completed run</span></div><div class="live-actions"><button id="download-report" class="btn primary" type="button" disabled>↓ Download Markdown</button><button id="show-live-debate" class="btn" type="button">↗ Debate Room</button></div><pre id="report-content">No live report yet.</pre></section><div class="demo-footer"><span>AI RESEARCH LAB · EXECUTIVE SHOWCASE</span><span>V4.1 · Offline demo · Live backend research</span></div></main><script>
-function layoutPI(){
-  const arena=document.querySelector('.arena');
-  const pi=arena.querySelector('.agent.pi');
-  const center=arena.querySelector('.center');
-  // Hidden tabs have no layout: retain the last valid measurements.
-  if(!pi.offsetHeight||!center.offsetHeight)return;
-  arena.style.setProperty('--pi-height',pi.getBoundingClientRect().height+'px');
-  arena.style.setProperty('--question-height',center.getBoundingClientRect().height+'px');
+</div><!-- local-live-console:end --><div class="workspace"><section class="arena"><div class="arena-label">◈ DEBATE ARENA · INTERACTIVE DEMO</div><div class="orbit"></div><div class="orbit two"></div><svg class="linklayer" viewBox="0 0 1000 700" preserveAspectRatio="none" aria-hidden="true"><line id="beam" class="beam" x1="500" y1="336" x2="500" y2="112"/></svg><div class="center"><div class="question">RESEARCH QUESTION</div><h2 id="arena-research-question">Will End-to-End AI Replace Modular ADAS by 2030?</h2><small>Evidence · Reasoning · Debate</small></div><div class="agent pi" data-agent="PI"><div class="talk"></div><div class="portrait">🧑‍🚀</div><div class="name">PI</div><div class="role">Research Director</div></div><div class="agent researcher" data-agent="Researcher"><div class="talk"></div><div class="portrait">👩‍🔬</div><div class="name">Researcher</div><div class="role">Evidence Hunter</div></div><div class="agent analyst" data-agent="Analyst"><div class="talk"></div><div class="portrait">🧑‍💻</div><div class="name">Analyst</div><div class="role">Pro / Analysis</div></div><div class="agent critic" data-agent="Critic"><div class="talk"></div><div class="portrait">👩‍⚖️</div><div class="name">Critic</div><div class="role">Con / Challenger</div></div><div class="agent writer" data-agent="Writer"><div class="talk"></div><div class="portrait">🧑‍🎨</div><div class="name">Writer</div><div class="role">Synthesis</div></div><div class="arena-footer"><div class="step" id="step">Ready to begin · 8 debate turns</div><div class="controls"><button class="btn" id="restart">↺ Replay</button><button class="btn primary" id="toggle">Ⅱ Pause</button></div></div></section><aside class="side"><div class="side-head"><h3>◉ Live Debate Transcript</h3><span class="status" id="status">● RUNNING</span></div><div class="feed" id="feed" aria-live="polite"></div><div class="conclusion"><b>◇ EMERGING HYPOTHESIS</b><p>Hybrid architectures may be more plausible than full replacement: learned driving intelligence combined with independent safety supervision and deterministic control.</p></div></aside></div><section class="foot"><div class="legend"><span><i class="dot" style="--c:var(--violet)"></i>PI</span><span><i class="dot" style="--c:var(--cyan)"></i>Researcher</span><span><i class="dot" style="--c:var(--green)"></i>Analyst</span><span><i class="dot" style="--c:var(--pink)"></i>Critic</span><span><i class="dot" style="--c:var(--amber)"></i>Writer</span></div><div>Demo: scripted dialogue · Live: actual backend events</div></section></section><section class="demo-panel" id="panel-architecture"><div class="eyebrow">SYSTEM DESIGN</div><h2 class="section-heading">Local-first, event-driven research orchestration</h2><p class="section-lead">The working V2 prototype uses a FastAPI service to create research runs, LangGraph to coordinate steps, OpenAlex to retrieve research metadata, a locally served LLM for reasoning, and SQLite to persist runs and events. The V3 frontend visualizes events through server-sent events (SSE).</p><div class="workflow"><span class="node">Research topic</span><span class="arr">→</span><span class="node">PI</span><span class="arr">→</span><span class="node">Researcher</span><span class="arr">→</span><span class="node">Analyst</span><span class="arr">→</span><span class="node">Critic</span><span class="arr">↺</span><span class="node">RefineSearch / Review</span><span class="arr">→</span><span class="node">Writer</span></div><div class="tech-list"><div><b>Orchestration · LangGraph</b><span>Agent state, conditional transitions, and bounded critique loops.</span></div><div><b>Inference · llama.cpp</b><span>Local OpenAI-compatible API with Holo-3.1-35B-A3B for the existing prototype.</span></div><div><b>Research retrieval · OpenAlex</b><span>Topic-driven paper search and critique-triggered additional retrieval.</span></div><div><b>Backend · FastAPI + SQLite</b><span>Run creation, persisted events, report storage, and SSE streaming.</span></div><div><b>Frontend · Vite</b><span>Visualizes agent events and progress in a debate-room metaphor.</span></div><div><b>Observability · Planned</b><span>MLflow integration for comparing runs, latency, model configurations, and quality metrics.</span></div></div><div class="result-box"><h3>What makes the system interesting?</h3><p>Critique is not merely an output label: in V2 it can trigger additional evidence retrieval before the workflow returns to analysis. The maximum loop count prevents unbounded execution.</p></div><p class="fineprint">Architecture describes the developed V2 prototype; Live Research connects to its API through the same-origin /api proxy.</p></section><section class="demo-panel" id="panel-results"><div class="eyebrow">EVIDENCE & NEXT STEPS</div><h2 class="section-heading">What we have proven — and what remains open</h2><div class="presentation-grid"><div class="presentation-card"><div class="number">✓</div><h3>Working V2 execution</h3><p>A completed test generated a research report and executed critique-triggered retrieval with twelve unique papers.</p></div><div class="presentation-card"><div class="number">!</div><h3>Grounding limitations</h3><p>Retrieved paper relevance, source attribution, and whether revised analysis actually incorporates new evidence still need stronger checks.</p></div><div class="presentation-card"><div class="number">→</div><h3>Next engineering milestones</h3><p>Evidence quality control, reliable live event mapping, experiment tracking with MLflow, and reproducible evaluation.</p></div></div><div class="result-box"><h3>Illustrative ADAS research hypothesis</h3><p>Complete replacement of modular ADAS by end-to-end AI by 2030 is uncertain. A hybrid architecture — learned driving intelligence paired with independent safety supervision and deterministic control — may be more plausible. <strong>This is a provisional synthesis, not a validated prediction.</strong></p></div><p class="section-lead"><strong>Manager-facing takeaway:</strong> This project demonstrates practical work across local LLM serving, graph-based agent orchestration, external research retrieval, backend APIs, persistent execution state, and an interactive frontend. The next phase is to quantify whether critique improves evidence quality and report reliability.</p><button class="demo-cta" data-go="debate">↺ Return to animated demo</button></section><!-- local-live-report:start --><section class="live-report" id="live-report" hidden><div class="live-console-head"><strong>LIVE RESEARCH REPORT</strong><span id="report-state">Waiting for a completed run</span></div><div class="live-actions"><button id="download-report" class="btn primary" type="button" disabled>↓ Download Markdown</button><button id="show-live-debate" class="btn" type="button">↗ Debate Room</button></div><pre id="report-content">No live report yet.</pre></section><!-- local-live-report:end --><div class="demo-footer"><span>AI RESEARCH LAB · EXECUTIVE SHOWCASE</span><span>V4.1 · Offline demo · Live backend research</span></div></main><script>
+// One layout model for Demo and Live. Coordinates are local to the arena's
+// content box; all dimensions and agent bounds come from rendered DOM geometry.
+let arenaLayoutActive=false, arenaLayoutPending=false, arenaLayoutKey='';
+function layoutArena(){
+  if(arenaLayoutActive)return;
+  const arena=document.querySelector('.arena'),card=arena.querySelector('.center');
+  if(!arena.clientWidth||!card.getBoundingClientRect().height)return;
+  arenaLayoutActive=true;
+  try{
+    const pi=arena.querySelector('.agent.pi'),lower=[...arena.querySelectorAll('.agent.analyst,.agent.critic')];
+    const sides=[...arena.querySelectorAll('.agent.researcher,.agent.writer')];
+    const style=getComputedStyle(arena),gap=parseFloat(style.getPropertyValue('--arena-gap'));
+    const safe=gap, floatEnvelope=gap;
+    const piHeight=pi.getBoundingClientRect().height,cardRect=card.getBoundingClientRect();
+    const bubbleLimit=parseFloat(getComputedStyle(pi.querySelector('.talk')).maxHeight);
+    const piTop=parseFloat(style.getPropertyValue('--pi-headroom'))+bubbleLimit+parseFloat(style.getPropertyValue('--pi-animation-clearance'));
+    const footerHeight=arena.querySelector('.arena-footer').getBoundingClientRect().height;
+    const lowerExtent=Math.max(...lower.map(el=>el.getBoundingClientRect().height))+floatEnvelope;
+    const borderY=parseFloat(style.borderTopWidth)+parseFloat(style.borderBottomWidth);
+    const paddingY=parseFloat(style.paddingTop)+parseFloat(style.paddingBottom);
+    function write(name,value){
+      const rounded=(Math.round(value*100)/100)+'px';
+      if(arena.style.getPropertyValue(name)!==rounded)arena.style.setProperty(name,rounded);
+    }
+    // Reserve one stack: PI bubble/group, question, lower agents and footer,
+    // separated by the same spacing unit. Additional height is solved below.
+    const stacked=piTop+piHeight+gap+cardRect.height+gap+lowerExtent+gap+footerHeight+safe;
+    // Reserve a symmetric upper/lower half as well as enough stacked content.
+    // This maintains breathing room instead of shrinking to the bare minimum.
+    const symmetric=2*(piTop+piHeight+gap+cardRect.height/2);
+    const natural=Math.max(stacked,symmetric)+borderY+paddingY;
+    const key=[arena.clientWidth,natural,piHeight,cardRect.width,cardRect.height].join(':');
+    if(key!==arenaLayoutKey){write('--arena-min-height',natural);arenaLayoutKey=key;}
+    write('--pi-y',parseFloat(style.paddingTop)+piTop+piHeight/2);
+    let fitted=false;
+    for(let pass=0;pass<6;pass++){
+      const a=arena.getBoundingClientRect();
+      const origin=a.top+parseFloat(style.borderTopWidth)+parseFloat(style.paddingTop);
+      const contentHeight=a.height-borderY-paddingY;
+      const p=pi.getBoundingClientRect(),c=card.getBoundingClientRect();
+      const lows=lower.map(el=>el.getBoundingClientRect());
+      // The lower boundary includes an envelope for the floating portraits.
+      let minTop=p.bottom-origin+gap;
+      const bottomLimit=Math.min(...lows.map(r=>r.top-origin-floatEnvelope))-gap;
+      const maxTop=bottomLimit-c.height;
+      let movingUpperFraction=0;
+      for(const el of sides){
+        const r=el.getBoundingClientRect();
+        if(c.left<r.right+gap && c.right>r.left-gap){
+          const sideFloor=r.bottom-origin+gap;
+          if(sideFloor>minTop){minTop=sideFloor;movingUpperFraction=(r.top+r.height/2-origin)/contentHeight;}
+        }
+      }
+      if(maxTop>=minTop){
+        write('--question-y',parseFloat(style.paddingTop)+(minTop+maxTop)/2+c.height/2);
+        fitted=true;break;
+      }
+      // The lower agents move proportionally with arena height. Divide the
+      // measured deficit by the relative motion to solve the required growth.
+      const lowerFraction=Math.min(...lows.map(r=>(r.top+r.height/2-origin)/contentHeight));
+      const slope=lowerFraction-movingUpperFraction;
+      if(slope<=0)break;
+      write('--arena-min-height',a.height+Math.ceil((minTop-maxTop)/slope)+1);
+    }
+    const result=fitted?'ready':'insufficient-space';
+    if(arena.dataset.layout!==result)arena.dataset.layout=result;
+  }finally{arenaLayoutActive=false;}
 }
-const piLayoutObserver=new ResizeObserver(()=>{layoutPI();refreshBeam();});
-piLayoutObserver.observe(document.querySelector('.agent.pi'));
-piLayoutObserver.observe(document.querySelector('.center'));
-layoutPI();
-function refreshBeam(){layoutPI();const active=document.querySelector('.agent.active');if(active)updateResearchBeam(active);}
-window.addEventListener('resize',refreshBeam);
-new ResizeObserver(refreshBeam).observe(document.querySelector('.arena'));
+function refreshBeam(){layoutArena();const active=document.querySelector('.agent.active');if(active)updateResearchBeam(active);}
+function scheduleArenaLayout(){
+  if(arenaLayoutPending)return;
+  arenaLayoutPending=true;
+  queueMicrotask(()=>{arenaLayoutPending=false;refreshBeam();});
+}
+const arenaLayoutObserver=new ResizeObserver(scheduleArenaLayout);
+for(const el of document.querySelectorAll('.arena,.center,.agent,.arena-footer'))arenaLayoutObserver.observe(el);
+window.addEventListener('resize',scheduleArenaLayout);
+document.fonts.ready.then(scheduleArenaLayout);
+layoutArena();
+
 const panels=['overview','debate','architecture','results'];
-function selectPanel(name){if(!panels.includes(name))return;document.querySelectorAll('.demo-panel').forEach(el=>el.classList.toggle('visible',el.id==='panel-'+name));document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('selected',b.dataset.tab===name));window.scrollTo({top:0,behavior:'smooth'});requestAnimationFrame(refreshBeam);}
+function selectPanel(name){if(!panels.includes(name))return;document.querySelectorAll('.demo-panel').forEach(el=>el.classList.toggle('visible',el.id==='panel-'+name));document.querySelectorAll('[data-tab]').forEach(b=>b.classList.toggle('selected',b.dataset.tab===name));window.scrollTo({top:0,behavior:'smooth'});refreshBeam();}
 document.querySelectorAll('[data-tab]').forEach(b=>b.addEventListener('click',()=>selectPanel(b.dataset.tab)));
 document.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>{selectPanel(b.dataset.go);if(b.dataset.go==='debate' && currentMode==='demo')restart()}));
 document.addEventListener('keydown',e=>{if(e.target.matches('input,textarea'))return;const current=panels.findIndex(p=>document.getElementById('panel-'+p).classList.contains('visible'));if(e.key==='ArrowRight')selectPanel(panels[Math.min(3,current+1)]);if(e.key==='ArrowLeft')selectPanel(panels[Math.max(0,current-1)]);});
 const turns=[{agent:'PI',text:'Our question: can end-to-end learning fully replace modular ADAS by 2030? Define what “replace” actually means.'},{agent:'Researcher',text:'Evidence suggests rapid progress in learned perception and planning. However, deployment evidence and safety validation must be assessed separately.'},{agent:'Analyst',text:'End-to-end approaches can reduce hand-designed interfaces and optimize behavior across perception and planning.'},{agent:'Critic',text:'But how do we verify rare failure cases? A strong benchmark score is not proof of safety in open-world driving.'},{agent:'Researcher',text:'I will look for evidence on safety validation, out-of-distribution robustness, and real-world deployment constraints.'},{agent:'Analyst',text:'A layered design may combine learned trajectory generation with independent safety checks and lower-level controllers.'},{agent:'Critic',text:'We should distinguish a plausible engineering direction from a proven 2030 prediction. The evidence remains incomplete.'},{agent:'Writer',text:'Provisional synthesis: hybrid ADAS architectures appear more plausible than complete replacement. Open questions remain.'}];const colors={PI:'#b39bff',Researcher:'#48e4ff',Analyst:'#68f5bd',Critic:'#ff88b2',Writer:'#ffd178'};let index=0,playing=true,timer;const feed=document.getElementById('feed'),toggle=document.getElementById('toggle'),status=document.getElementById('status'),step=document.getElementById('step'),beam=document.getElementById('beam');function clearActive(){document.querySelectorAll('.agent').forEach(el=>el.classList.remove('active'));beam.classList.remove('show')}function showTurn(){if(index>=turns.length){clearActive();playing=false;toggle.textContent='▶ Play Again';status.textContent='● COMPLETED';step.textContent='Debate complete · 8 turns';return}let t=turns[index];clearActive();let el=document.querySelector(`[data-agent="${t.agent}"]`);el.classList.add('active');el.querySelector('.talk').textContent=t.text;updateResearchBeam(el);beam.style.stroke=colors[t.agent];beam.classList.add('show');let msg=document.createElement('div');msg.className='msg';msg.style.setProperty('--accent',colors[t.agent]);let who=document.createElement('div');who.className='who';let name=document.createElement('span');name.textContent=t.agent;let tm=document.createElement('time');tm.textContent=`TURN ${String(index+1).padStart(2,'0')}`;who.append(name,tm);let p=document.createElement('p');p.textContent=t.text;msg.append(who,p);feed.appendChild(msg);feed.scrollTop=feed.scrollHeight;step.textContent=`Turn ${index+1} / ${turns.length} · ${t.agent} speaking`;index++}function schedule(){clearTimeout(timer);if(playing){timer=setTimeout(()=>{showTurn();schedule()},3300)}}function restart(){clearTimeout(timer);feed.innerHTML='';index=0;playing=true;toggle.textContent='Ⅱ Pause';status.textContent='● RUNNING';showTurn();schedule()}toggle.onclick=()=>{if(currentMode==='live')return;if(index>=turns.length){restart();return}playing=!playing;toggle.textContent=playing?'Ⅱ Pause':'▶ Resume';status.textContent=playing?'● RUNNING':'Ⅱ PAUSED';if(playing)schedule();else clearTimeout(timer)};document.getElementById('restart').onclick=()=>{if(currentMode==='demo')restart()};restart();
 
+// @local-live:start
 // V4.1 live adapter: no dependencies; original executive navigation and demo are retained.
 let currentMode='demo';
 let liveRunId=null,liveSource=null,pollTimer=null,liveSeen=new Set(),liveCount=0;
@@ -237,7 +327,7 @@ async function refreshRun(){
     if(currentMode!=='live'||data.id!==liveRunId)return;
     if(data.topic){$('research-topic').value=data.topic;syncResearchQuestion();}
     const state=String(data.status||'unknown');
-    $('run-state').textContent='Run '+liveRunId+' · '+state;
+    $('run-state').textContent=state;
     status.textContent='● '+state.toUpperCase();
     setConn('Backend connected · '+state);
     if(state==='completed'){
@@ -253,7 +343,7 @@ async function refreshRun(){
 }
 function attachRun(id){
   closeLive();clearLiveDisplay();liveMessage('');
-  liveRunId=id;$('run-id').value=id;$('run-state').textContent='Run '+id+' · connecting';
+  liveRunId=id;$('run-id').value=id;$('run-state').textContent='Connecting';
   status.textContent='● CONNECTING';setConn('Connecting to live events…');
   // EventSource automatically reconnects on transient network errors.
   liveSource=new EventSource(apiPath('/runs/'+encodeURIComponent(id)+'/events'));
@@ -288,12 +378,13 @@ $('show-live-debate').addEventListener('click',()=>selectPanel('debate'));
 // Make the live report available in Results & Roadmap without replacing the original content.
 const resultsPanel=$('panel-results');resultsPanel.appendChild($('live-report'));
 window.addEventListener('beforeunload',closeLive);
+// @local-live:end
 </script>
 <script id="v41-topic-sync">
 const demoQuestion = 'Will End-to-End AI Replace Modular ADAS by 2030?';
 function syncResearchQuestion(){
   $('arena-research-question').textContent=currentMode==='demo'?demoQuestion:($('research-topic').value.trim()||'Enter a research question');
-  requestAnimationFrame(refreshBeam);
+  refreshBeam();
 }
 $('research-topic').addEventListener('input',syncResearchQuestion);
 $('research-topic').addEventListener('change',syncResearchQuestion);
@@ -308,8 +399,8 @@ syncResearchQuestion();
 
     const labels = {
         running: '● Research Running',
-        completed: '✓ Completed',
-        failed: '✕ Failed',
+        completed: '✓ Research Completed',
+        failed: '✕ Research Failed',
         ready: '○ Ready'
     };
 
@@ -338,4 +429,50 @@ syncResearchQuestion();
 })();
 </script>
 
+<script id="agent-bubble-containment">
+// Bubble-only containment. Local Researcher behavior is preserved; the public
+// profile also contains the other radial bubbles at narrow screen widths.
+(function () {
+    const arena = document.querySelector('.arena');
+    const publicDemo = document.documentElement.classList.contains('public-showcase');
+    const agents = [...arena.querySelectorAll(publicDemo ? '.agent:not(.pi)' : '.agent.researcher')];
+    let pending = false;
+    function fitBubbles() {
+        pending = false;
+        for (const agent of agents) {
+            if (!agent.classList.contains('active') || !arena.clientWidth) continue;
+            const talk = agent.querySelector('.talk');
+            for (const name of ['--bubble-shift-x','--bubble-shift-up','--bubble-available-height']) talk.style.removeProperty(name);
+            const bounds = arena.getBoundingClientRect(),bubble = talk.getBoundingClientRect();
+            if (!bubble.width || !bubble.height) continue;
+            const safe = 24, gap = 16;
+            let left = Math.max(bounds.left + safe,Math.min(bubble.left,bounds.right-safe-bubble.width));
+            let bottom = bubble.bottom;
+            const card = arena.querySelector('.center').getBoundingClientRect();
+            if (publicDemo && bottom>card.top-gap && bottom-bubble.height<card.bottom+gap) {
+                // Prefer the open side band before moving a lower bubble up.
+                if (agent.getBoundingClientRect().left<bounds.left+bounds.width/2 && card.left-gap-(bounds.left+safe)>=bubble.width) left=Math.min(left,card.left-gap-bubble.width);
+                else if (bounds.right-safe-(card.right+gap)>=bubble.width) left=Math.max(left,card.right+gap);
+            }
+            const obstacles = [...arena.querySelectorAll('.agent,.center')].filter(el=>el!==agent)
+                .map(el=>el.getBoundingClientRect()).sort((a,b)=>b.top-a.top);
+            for (const rect of obstacles) {
+                if (left<rect.right+gap && left+bubble.width>rect.left-gap && bottom>rect.top-gap && bottom-bubble.height<rect.bottom+gap) bottom=Math.min(bottom,rect.top-gap);
+            }
+            talk.style.setProperty('--bubble-shift-x',(left-bubble.left)+'px');
+            talk.style.setProperty('--bubble-shift-up',(bubble.bottom-bottom)+'px');
+            talk.style.setProperty('--bubble-available-height',Math.max(24,bottom-bounds.top-safe)+'px');
+        }
+    }
+    function schedule() {if(!pending){pending=true;queueMicrotask(fitBubbles);}}
+    const changes = new MutationObserver(schedule);
+    for (const agent of agents) changes.observe(agent,{attributes:true,attributeFilter:['class'],childList:true,characterData:true,subtree:true});
+    changes.observe(document.getElementById('panel-debate'),{attributes:true,attributeFilter:['class']});
+    // Absolute bubble margins cannot resize the observed arena.
+    new ResizeObserver(schedule).observe(arena);
+    window.addEventListener('resize',schedule);
+    document.fonts.ready.then(schedule);
+    schedule();
+})();
+</script>
 </body></html>
