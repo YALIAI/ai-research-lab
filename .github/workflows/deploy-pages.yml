@@ -17,6 +17,8 @@ concurrency:
 
 jobs:
   build:
+    outputs:
+      index_sha256: ${{ steps.entry.outputs.sha256 }}
     runs-on: ubuntu-latest
     defaults:
       run:
@@ -30,6 +32,16 @@ jobs:
           cache-dependency-path: frontend/package-lock.json
       - run: npm ci
       - run: npm run build:pages
+      - name: Record exact public homepage checksum
+        id: entry
+        run: |
+          python3 - <<'PYTHON'
+          import hashlib, os
+          from pathlib import Path
+          digest = hashlib.sha256(Path('dist-pages/index.html').read_bytes()).hexdigest()
+          with open(os.environ['GITHUB_OUTPUT'], 'a') as output:
+              output.write(f'sha256={digest}\n')
+          PYTHON
       - name: Check static entry, autoplay, geometry, navigation and network isolation
         run: npm run test:pages
       - uses: actions/upload-artifact@v4
@@ -46,14 +58,96 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     permissions:
+      contents: read
       pages: write
       id-token: write
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
+      - name: Verify repository Pages publishing configuration
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const settingsUrl = `https://github.com/${context.repo.owner}/${context.repo.repo}/settings/pages`;
+            try {
+              const { data } = await github.request('GET /repos/{owner}/{repo}/pages', context.repo);
+              if (data.build_type !== 'workflow') {
+                core.setFailed(`Pages must use GitHub Actions as its publishing source. Open ${settingsUrl} and select Build and deployment → Source → GitHub Actions.`);
+              }
+            } catch (error) {
+              if (error.status === 404) {
+                core.setFailed(`GitHub Pages is not enabled. Open ${settingsUrl} and select Build and deployment → Source → GitHub Actions. Then rerun this workflow. The normal workflow token cannot enable Pages itself.`);
+              } else {
+                throw error;
+              }
+            }
       - name: Configure Pages (Settings → Pages → Source must be GitHub Actions)
         uses: actions/configure-pages@v5
       - name: Deploy static showcase
         id: deployment
         uses: actions/deploy-pages@v4
+      - name: Verify published root is HTTP 200 and matches the built Arena
+        timeout-minutes: 5
+        env:
+          PUBLIC_DEMO_URL: ${{ steps.deployment.outputs.page_url }}
+          EXPECTED_INDEX_SHA256: ${{ needs.build.outputs.index_sha256 }}
+        run: |
+          python3 - <<'PYTHON'
+          import hashlib, os, re, time, urllib.request
+          from html.parser import HTMLParser
+
+          class Showcase(HTMLParser):
+              def __init__(self):
+                  super().__init__()
+                  self.ids = set()
+                  self.agents = set()
+                  self.public = self.debate = self.live_disabled = False
+              def handle_starttag(self, tag, attributes):
+                  attrs = dict(attributes)
+                  self.ids.add(attrs.get('id'))
+                  if 'data-agent' in attrs:
+                      self.agents.add(attrs['data-agent'])
+                  if tag == 'html':
+                      self.public = 'public-showcase' in attrs.get('class', '').split()
+                  if attrs.get('id') == 'panel-debate':
+                      self.debate = 'visible' in attrs.get('class', '').split()
+                  if attrs.get('id') == 'mode-live':
+                      self.live_disabled = 'disabled' in attrs
+
+          url = os.environ['PUBLIC_DEMO_URL'].rstrip('/') + '/'
+          expected = os.environ['EXPECTED_INDEX_SHA256']
+          if not re.fullmatch(r'[0-9a-f]{64}', expected):
+              raise SystemExit('Missing build checksum; refusing an unverifiable deployment.')
+          last_error = None
+          for attempt in range(12):
+              try:
+                  request = urllib.request.Request(url + '?deployment=' + os.environ['GITHUB_SHA'], headers={'Cache-Control': 'no-cache'})
+                  with urllib.request.urlopen(request, timeout=10) as response:
+                      if response.status != 200:
+                          raise RuntimeError(f'Expected HTTP 200, received {response.status}')
+                      body = response.read()
+                  if hashlib.sha256(body).hexdigest() != expected:
+                      raise RuntimeError('Published root does not yet match this build.')
+                  html = body.decode('utf-8')
+                  page = Showcase()
+                  page.feed(html)
+                  required = {'panel-overview', 'panel-debate', 'panel-architecture', 'panel-results', 'arena-research-question', 'beam'}
+                  if not required <= page.ids or page.agents != {'PI', 'Researcher', 'Analyst', 'Critic', 'Writer'}:
+                      raise RuntimeError('Published entry is missing Arena/navigation components.')
+                  if not (page.public and page.debate and page.live_disabled):
+                      raise RuntimeError('Published entry is not the static, demo-first showcase.')
+                  if re.search(r'\bfetch\s*\(|\bEventSource\b|localhost|127\.0\.0\.1', html):
+                      raise RuntimeError('Local backend code leaked into the public entry.')
+                  print(f'HTTP 200 verified: {url}; homepage checksum {expected}')
+                  with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as summary:
+                      summary.write(f'## Public showcase verified\n\n[Live Interactive Demo]({url}) returned HTTP 200 and exactly matched the built static Arena.\n')
+                  break
+              except Exception as error:
+                  last_error = error
+                  print(f'Published root check {attempt + 1}/12: {error}', flush=True)
+                  if attempt < 11:
+                      time.sleep(5)
+          else:
+              raise SystemExit(f'Published root verification failed: {last_error}')
+          PYTHON
