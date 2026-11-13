@@ -43,15 +43,15 @@
      const arena=document.querySelector('.arena');const top=window.scrollY+arena.getBoundingClientRect().top-document.querySelector('.demo-nav').getBoundingClientRect().height-16;
      window.scrollTo({top:Math.max(0,top),behavior:'instant'});return;
    }
-   toggle.click();const paused=index;await wait(3500);assert(index===paused&&!playing,'pause stops automatic progression');
+   toggle.click();const paused=index;await wait(3500);assert(index===paused&&researchState.runStatus!=='running','pause stops automatic progression');
    toggle.click();await wait(3400);assert(index===paused+1&&document.querySelector('.agent.active').dataset.agent==='Researcher','resume advances automatically');
    geometry('resumed Researcher');
-   document.getElementById('restart').click();assert(index===1&&feed.children.length===1&&playing,'replay restarts automatically');
+   document.getElementById('restart').click();assert(index===1&&feed.children.length===1&&researchState.runStatus==='running','replay restarts automatically');
    const seen=new Set(['PI']);
    for(let n=0;n<7;n++){await wait(3350);const active=document.querySelector('.agent.active');if(active)seen.add(active.dataset.agent);geometry('automatic turn '+(n+2));}
    assert(seen.size===5,'all five agents activated by real autoplay timer');
-   await wait(3400);assert(!playing&&status.textContent.includes('COMPLETED'),'automatic completion');
-   toggle.click();assert(playing&&index===1,'play again after completion');toggle.click();
+   await wait(3400);assert(researchState.runStatus!=='running'&&status.textContent.includes('COMPLETED'),'automatic completion');
+   toggle.click();assert(researchState.runStatus==='running'&&index===1,'play again after completion');toggle.click();
    for(const panel of ['overview','architecture','results','debate']){
      document.querySelector(`[data-tab="${panel}"]`).click();await wait(80);
      assert(document.querySelector('.demo-panel.visible').id==='panel-'+panel,'navigation '+panel);
