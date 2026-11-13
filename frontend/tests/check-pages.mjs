@@ -70,11 +70,18 @@ if(process.argv.includes('--prepare-only')){
     for(const {width,height,url} of files){
       const target=origin?`${origin}/verify?width=${width}&height=${height}`:url;
       const output=await new Promise((ok,fail)=>{
-        const chrome=spawn(process.env.CHROME_BIN||'google-chrome',['--headless','--no-sandbox','--disable-gpu','--disable-dev-shm-usage','--allow-file-access-from-files','--window-size=1440,1000','--virtual-time-budget=40000','--dump-dom',target]);
-        let stdout='',stderr='';const timeout=setTimeout(()=>{chrome.kill();fail(Error('Chrome timed out'))},30000);
+        const chrome=spawn(process.env.CHROME_BIN||'google-chrome',['--headless','--no-sandbox','--disable-gpu','--disable-dev-shm-usage','--allow-file-access-from-files','--disable-background-networking','--disable-component-update','--no-first-run','--no-default-browser-check','--disable-background-timer-throttling','--window-size=1440,1000','--virtual-time-budget=40000','--dump-dom',target]);
+        let stdout='',stderr='';const started=Date.now();
+        // The full timer-driven debate takes over 34 seconds. Some Chrome
+        // versions do not accelerate iframe timers over HTTP, so allow the
+        // complete 40-second budget plus startup/HTTP time before failing.
+        const timeout=setTimeout(()=>{
+          writeFileSync(join(artifacts,`${width}-debug-results.json`),JSON.stringify({target,requests,stderr,stdout},null,2));
+          chrome.kill();fail(Error('Chrome exceeded playback budget and startup allowance'));
+        },70000);
         chrome.stdout.on('data',d=>stdout+=d);chrome.stderr.on('data',d=>stderr+=d);
         chrome.on('error',error=>{clearTimeout(timeout);fail(error)});
-        chrome.on('close',code=>{clearTimeout(timeout);if(code)fail(Error(stderr));else ok(stdout)});
+        chrome.on('close',code=>{clearTimeout(timeout);console.log(`Chrome ${width}px completed in ${Date.now()-started}ms`);if(code)fail(Error(stderr));else ok(stdout)});
       });
       const raw=output.match(/<pre id="test-result">(\{[\s\S]*?)<\/pre>/)?.[1];
       if(!raw)throw Error('Browser did not finish Pages checks');
