@@ -50,6 +50,7 @@ export default defineConfig(({ mode }) => {
       },
       generateBundle() {
         this.emitFile({ type: 'asset', fileName: 'executive-v4.1.html', source: executiveAlias });
+        this.emitFile({ type: 'asset', fileName: 'social/ai-research-lab-og.png', source: readFileSync(new URL('./public/social/ai-research-lab-og.png', import.meta.url)) });
       },
     }],
     server: { host: '127.0.0.1', port: pages ? 5175 : 5174, strictPort: true, ...(pages ? {} : { proxy }) },

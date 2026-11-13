@@ -13,7 +13,13 @@ if(!entry.includes('class="public-showcase"')||!entry.includes('id="panel-debate
 if(/\bfetch\s*\(|\bEventSource\b|localhost|127\.0\.0\.1|\/api\b|Holo-|\/home\//i.test(entry))throw Error('Local adapter/configuration leaked into public HTML');
 if(/id="(?:live-controls|run-id|live-report)"/.test(entry))throw Error('Live controls leaked');
 if(!alias.includes('url=./'))throw Error('Compatibility entry must stay within repository subpath');
-if(readdirSync(dist).sort().join(',')!=='executive-v4.1.html,index.html')throw Error('Unexpected published files');
+if(readdirSync(dist).sort().join(',')!=='executive-v4.1.html,index.html,social')throw Error('Unexpected published files');
+const preview=readFileSync(join(dist,'social/ai-research-lab-og.png'));
+if(preview.subarray(0,8).toString('hex')!=='89504e470d0a1a0a'||preview.readUInt32BE(16)!==1200||preview.readUInt32BE(20)!==630)throw Error('Invalid social preview PNG');
+const meta=new Map([...entry.matchAll(/<meta\b[^>]*>/gi)].map(([tag])=>{const attrs=Object.fromEntries([...tag.matchAll(/([\w:-]+)="([^"]*)"/g)].map(m=>[m[1],m[2]]));return[attrs.property||attrs.name,attrs.content];}));
+for(const name of ['og:title','og:description','og:image','og:url','og:type','twitter:card'])if(!meta.get(name))throw Error('Missing initial HTML metadata: '+name);
+if(meta.get('og:description').length<100)throw Error('Social description is too short');
+if(meta.get('og:image')!=='https://yaliai.github.io/ai-research-lab/social/ai-research-lab-og.png'||meta.get('og:url')!=='https://yaliai.github.io/ai-research-lab/'||meta.get('og:type')!=='website'||meta.get('twitter:card')!=='summary_large_image')throw Error('Invalid social metadata');
 const checks=readFileSync(new URL('./pages-browser.js',import.meta.url),'utf8');
 const instrumentation=`<script>
 window.__pagesErrors=[];window.__pagesNetwork=[];
@@ -50,6 +56,7 @@ if(process.argv.includes('--prepare-only')){
       if(url.pathname==='/ai-research-lab/'||url.pathname==='/ai-research-lab/index.html'){
         res.end(url.searchParams.has('verify')?instrumented:entry);return;
       }
+      if(url.pathname==='/ai-research-lab/social/ai-research-lab-og.png'){res.setHeader('Content-Type','image/png');res.end(preview);return;}
       if(url.pathname==='/ai-research-lab/executive-v4.1.html'){res.end(alias);return;}
       if(url.pathname==='/verify'){
         res.end(wrapper(`${origin}/ai-research-lab/?verify=1`,Number(url.searchParams.get('width')),Number(url.searchParams.get('height'))));return;
@@ -64,6 +71,9 @@ if(process.argv.includes('--prepare-only')){
     if(origin){
       const response=await fetch(origin+'/ai-research-lab/');
       if(!response.ok||await response.text()!==entry)throw Error('HTTP repository-subpath homepage mismatch');
+      const image=await fetch(origin+'/ai-research-lab/social/ai-research-lab-og.png');
+      if(!image.ok||image.headers.get('content-type')!=='image/png'||!Buffer.from(await image.arrayBuffer()).equals(preview))throw Error('HTTP preview image mismatch');
+      console.log(JSON.stringify({initialMetadataVerified:true,descriptionCharacters:meta.get('og:description').length,image:meta.get('og:image'),imageDimensions:'1200x630'}));
       const old=await fetch(origin+'/ai-research-lab/executive-v4.1.html');
       if(!old.ok||!(await old.text()).includes('url=./'))throw Error('HTTP compatibility entry mismatch');
     }
@@ -90,7 +100,7 @@ if(process.argv.includes('--prepare-only')){
       writeFileSync(join(artifacts,`${width}-results.json`),JSON.stringify(result,null,2));
       if(!result.passed)throw Error(JSON.stringify(result));
     }
-    if(requests.some(path=>!/^(?:\/ai-research-lab\/(?:index.html|executive-v4.1.html)?|\/verify|\/favicon.ico)$/.test(path)))throw Error('Unexpected HTTP request: '+JSON.stringify(requests));
+    if(requests.some(path=>!/^(?:\/ai-research-lab\/(?:index.html|executive-v4.1.html|social\/ai-research-lab-og.png)?|\/verify|\/favicon.ico)$/.test(path)))throw Error('Unexpected HTTP request: '+JSON.stringify(requests));
     writeFileSync(join(artifacts,'results.json'),JSON.stringify({http:!!origin,results,requests},null,2));
     console.log(JSON.stringify({passed:true,http:!!origin,viewports:results.map(r=>({width:r.width,height:r.height,checks:r.checks.length})),artifacts},null,2));
   }finally{server?.close();}
